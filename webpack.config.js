@@ -18,19 +18,19 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx', '.css', '.scss']
   },
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      loaders: ['react-hot', 'babel'],
-      include: path.join(__dirname, 'scripts')
-    },{
-      test: /\.scss$/,
-      loaders: 'style!css!sass?includePaths[]=' +
-        (path.resolve(__dirname, './node_modules/bootstrap-sass/assets/stylesheets'))
-      //   '&includePaths[]=' +
-      //   (path.resolve(__dirname, './node_modules/bootstrap-sass/assets/fonts/bootstrap')),
-    }]
+    loaders: [
+      {
+        test: /\.scss$/,
+        loader: 'style!css!sass?outputStyle=expanded&includePaths[]=' + (path.resolve(__dirname, './node_modules/bootstrap-sass/assets/stylesheets'))
+      },
+      {
+        test: /\.jsx?$/,
+        loaders: ['react-hot', 'babel'],
+        include: path.join(__dirname, 'scripts')
+      }
+    ]
   }
 };
