@@ -1,9 +1,18 @@
 import React from 'react';
+import {RouteHandler} from 'react-router';
+import Header from './layout/Header';
 
 const App = React.createClass({
   render() {
     return (
-      <h1>Yaaaaaaay</h1>
+      <div className='container'>
+        <div className='row'>
+          <div className='col-lg-12'>
+            <Header />
+            <RouteHandler />
+          </div>
+        </div>
+      </div>
     );
   }
 });
