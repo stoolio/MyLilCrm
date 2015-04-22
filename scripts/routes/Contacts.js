@@ -6,7 +6,7 @@ const Contacts = React.createClass({
     return (
       <div className='row'>
         <div className='col-lg-12'>
-          <h1>Contacts</h1>
+          <h1>Contacts are fun</h1>
           <Link to='/contacts/new' className='btn btn-default'>
             Create New
           </Link>
