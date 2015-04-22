@@ -7,15 +7,26 @@ let server = 'http://localhost:3001';
 
 let ContactStore = Reflux.createStore({
   listenables: [ContactActions],
-  function onAddItem() {
+  onAddItem() {
     request
       .post(server + '/api/contacts/new')
       .set('Content-Type', 'application/json')
+      .end((err, res) => {
+        if(!res.ok) {
+          console.log('Error: ', res.text);
+        }
+      });
   },
-  function onRemoveItem() {
-
+  onRemoveItem() {
+    request
+      .del(server + '/api/contacts/:id')
+      .end((err, res) => {
+        if(!res.ok) {
+          console.log('Error: ', res.text);
+        }
+      });
   },
-  function getInitialState() {
+  getInitialState() {
     request
       .get(server + '/api/contacts')
       .set('Accept', 'application/json')
@@ -23,9 +34,9 @@ let ContactStore = Reflux.createStore({
         if(res.ok) {
           this.contacts = res.body;
         } else {
-          alert('Error: ' + res.test);
+          console.log('Error: ', res.text);
         }
-      })
+      });
   }
 });
 
