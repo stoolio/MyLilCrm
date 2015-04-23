@@ -4,5 +4,5 @@ npm-debug.log
 *.sublime-project
 *.sublime-workspace
 
-db
+db/
 fonts
