@@ -6,11 +6,19 @@ const Contacts = React.createClass({
     return (
       <div className='row'>
         <div className='col-lg-12'>
-          <h1>Contacts are fun</h1>
-          <Link to='/contacts/new' className='btn btn-default'>
-            Create New
-          </Link>
-          <RouteHandler />
+          <div className='page-header'>
+            <div className='row'>
+              <div className='col-md-6'>
+                <h1>Contacts</h1>
+              </div>
+              <div className='col-md-6'>
+                <Link to='/contacts/new' className='btn btn-default'>
+                  Create New
+                </Link>
+              </div>
+            </div>
+          </div>
+          <RouteHandler {...this.props} />
         </div>
       </div>
     );

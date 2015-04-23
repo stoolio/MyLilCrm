@@ -13,7 +13,7 @@ router.get('/test', function(req, res) {
       return;
     }
     res.send('Contact find: ' + contact.name.last);
-  })
+  });
 })
 
 router.get('/', (req, res) => {
@@ -22,4 +22,4 @@ router.get('/', (req, res) => {
 
 let api = router;
 
-export default api;
+export default router as api;

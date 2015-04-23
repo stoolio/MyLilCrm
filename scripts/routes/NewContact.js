@@ -1,10 +1,16 @@
 import React from 'react';
 
+import ContactActions from './../actions/Contacts';
+
 // <label>
         //   {this.props.name}
         // </label>
 
 const Field = React.createClass({
+  handleChange(e) {
+    e.preventDefault()
+    this.props.publishChange(e.target.value);
+  },
   render() {
     let tag = 'input' + this.props.name;
     return (
@@ -13,7 +19,12 @@ const Field = React.createClass({
           {this.props.name}
         </label>
         <div className='col-sm-10'>
-          <input id={tag} type={this.props.type} className='form-control' placeholder={this.props.placeholder} />
+          <input  value={this.props.value}
+                  onChange={this.handleChange}
+                  type={this.props.type}
+                  placeholder={this.props.placeholder}
+                  id={tag}
+                  className='form-control' />
         </div>
       </div>
     );
@@ -23,9 +34,9 @@ const Field = React.createClass({
 const Submit = React.createClass({
   render() {
     return (
-      <div class='form-group'>
+      <div className='form-group'>
         <div className='col-sm-offset-2 col-sm-10'>
-          <button type='submit' className='btn btn-primary'>
+          <button onClick={this.props.onClick} type='submit' className='btn btn-primary'>
             Submit
           </button>
         </div>
@@ -35,15 +46,32 @@ const Submit = React.createClass({
 });
 
 const NewContact = React.createClass({
+  getInitialState() {
+    return {
+      fullName: '',
+      email: '',
+      phone: ''
+    };
+  },
+  add() {
+    ContactActions.add(this.state);
+  },
+  handleChange(prop) {
+    return (value) => {
+      let newState = {};
+      newState[prop] = value;
+      this.setState(newState);
+    };
+  },
   render() {
     return (
       <div className='row'>
         <div className='col-lg-6'>
           <form className='form-horizontal'>
-            <Field name='Name' type='text' placeholder='First & Last Name' />
-            <Field name='Email' type='email' placeholder='Email' />
-            <Field name='Phone' type='tel' placeholder='Phone Number' />
-            <Submit />
+            <Field value={this.state.fullName} publishChange={this.handleChange('fullName')} name='Name' type='text' placeholder='First & Last Name' />
+            <Field value={this.state.email} publishChange={this.handleChange('email')}  name='Email' type='email' placeholder='Email' />
+            <Field value={this.state.phone} publishChange={this.handleChange('phone')}  name='Phone' type='tel' placeholder='Phone Number' />
+            <Submit onClick={this.add} />
           </form>
         </div>
       </div>

@@ -1,8 +1,10 @@
-import Reflux from 'refluxjs';
+import Reflux from 'reflux';
 
 let ContactActions = Reflux.createActions([
-  'addContact',
-  'removeContact'
+  'load',
+  'add',
+  'remove',
+  'sort'
 ]);
 
 export default ContactActions;
