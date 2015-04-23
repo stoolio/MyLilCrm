@@ -7,7 +7,7 @@ let server = 'http://localhost:3001';
 
 let ContactStore = Reflux.createStore({
   listenables: [ContactActions],
-  onAddItem() {
+  onAddContact() {
     request
       .post(server + '/api/contacts/new')
       .set('Content-Type', 'application/json')
@@ -17,7 +17,7 @@ let ContactStore = Reflux.createStore({
         }
       });
   },
-  onRemoveItem() {
+  onRemoveContact() {
     request
       .del(server + '/api/contacts/:id')
       .end((err, res) => {
