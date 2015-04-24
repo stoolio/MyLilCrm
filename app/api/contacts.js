@@ -1,6 +1,4 @@
 import express from 'express';
-let router = express.Router();
-
 import mongoose from 'mongoose';
 
 let Contact = mongoose.model('Contact');
@@ -72,6 +70,6 @@ export default {
           flash: {info: 'Deleted sucessfully'}
         });
       }
-    })
+    });
   }
 };

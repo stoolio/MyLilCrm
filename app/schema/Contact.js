@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
+let Schema = mongoose.Schema;
 
-let contactSchema = mongoose.Schema({
+let contactSchema = new Schema({
   name: {
     first: String,
     last: String
@@ -20,3 +21,5 @@ contactSchema.virtual('fullName').set(function(name) {
 });
 
 let Contact = mongoose.model('Contact', contactSchema);
+
+export default Contact;

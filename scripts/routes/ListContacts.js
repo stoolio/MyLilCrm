@@ -41,7 +41,7 @@ const ListContacts = React.createClass({
     };
     return {};
   },
-  componentWillMount() {
+  componentDidMount() {
     ContactActions.load();
   },
   sort(e) {
@@ -55,7 +55,7 @@ const ListContacts = React.createClass({
       return (
         <Contact key={contact._id} contact={contact} />
       );
-    })
+    });
     return (
       <table className='table table-striped'>
         <tbody>
@@ -79,6 +79,9 @@ const ListContacts = React.createClass({
               <a href='#' onClick={this.sort} data-by='phone'>
                 Phone
               </a>
+            </th>
+            <th>
+              Delete
             </th>
           </tr>
           {contacts}
