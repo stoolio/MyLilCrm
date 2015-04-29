@@ -16,26 +16,26 @@ let handle = (err) => {
 export default {
   load(cb) {
     return request
-      .get(server + '/api/contacts')
+      .get(server + '/api/leads')
       .on('error', (err) => {
         handle(err);
         cb(err);
       })
       .end(cb);
   },
-  create(contact, cb) {
+  create(lead, cb) {
     return request
-      .post(server + '/api/contacts/new')
-      .send(contact)
+      .post(server + '/api/leads/new')
+      .send(lead)
       .on('error', (err) => {
         handle(err);
         cb(err);
       })
       .end(cb);
   },
-  delete(id, cb) {
+  show(id, cb) {
     request
-      .del(server + '/api/contacts/' + id)
+      .get(server + '/api/leads/' + id)
       .on('error', (err) => {
         handle(err);
         cb(err);

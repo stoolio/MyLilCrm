@@ -2,10 +2,12 @@ import express from 'express';
 import {json} from 'body-parser';
 
 // DB Schema
-import './schema/Contact';
+import './model/Contact';
+import './model/Lead';
 
 // API Routes
 import contacts from './api/contacts';
+import leads from './api/leads';
 
 // Connect to DB
 import db from './db';
@@ -29,11 +31,21 @@ app.get('/test', (req, res) => {
 let api = express();
 api.use(allowCrossDomain);
 
+// contacts
 api.param('id', contacts.load);
 api.get('/contacts', contacts.index);
 api.post('/contacts/new', contacts.create);
+api.get('/contacts/:id', contacts.show);
 api.post('/contacts/:id', contacts.update);
 api.delete('/contacts/:id', contacts.destroy);
+
+// leads
+api.param('id', leads.load);
+api.get('/leads', leads.index);
+api.post('/leads/new', leads.create);
+api.get('/leads/:id', leads.show);
+api.post('/leads/:id', leads.update);
+api.delete('/leads/:id', leads.destroy);
 
 app.use('/api', api);
 

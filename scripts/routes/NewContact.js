@@ -2,10 +2,6 @@ import React from 'react';
 
 import ContactActions from './../actions/Contacts';
 
-// <label>
-        //   {this.props.name}
-        // </label>
-
 const Field = React.createClass({
   handleChange(e) {
     e.preventDefault()

@@ -26,36 +26,31 @@ export default {
   },
   // new: (req, res) => {},
   create: (req, res) => {
-    let {fullName, phone, email} = req.body;
-    let contact = new Contact();
-    contact.fullName = fullName;
-    contact.phone = phone;
-    contact.email = email;
+    let contact = new Contact(req.body);
     contact.save((err, newContact) => {
       if(err) {
         console.log(err);
         res.json({error: err});
       } else {
-        res.json({
-          flash: {info: 'Successfully created article'},
-          contact: newContact
-        });
+        res.json({contact: newContact});
       }
     });
   },
-  // show: (req, res) => {},
+  show: (req, res) => {
+    res.json({contact: contact});
+  },
   // edit: (req, res) => {},
   update: (req, res) => {
     let contact = req.contact;
     let id = contact._id;
     delete contact._id;
     contact.findOneAndUpdate({_id: id}, contact)
-      .exec((err) => {
+      .exec((err, updatedContact) => {
         if(err) {
           console.log(err);
           res.json({error: err});
         } else {
-          res.json({flash: {info: 'Successfully updated article'}});
+          res.json({contact: updatedContact});
         }
       });
   },
@@ -66,9 +61,7 @@ export default {
         console.log(err);
         res.json({error: err});
       } else {
-        res.json({
-          flash: {info: 'Deleted sucessfully'}
-        });
+        res.json({info: 'Deleted sucessfully'});
       }
     });
   }
