@@ -24,6 +24,7 @@ export default {
       .end(cb);
   },
   create(lead, cb) {
+    console.log(lead);
     return request
       .post(server + '/api/leads/new')
       .send(lead)

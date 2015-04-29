@@ -17,6 +17,8 @@ let alphaSort = function(by, dir) {
   };
 };
 
+let prevSort = false;
+
 let ContactStore = Reflux.createStore({
   listenables: [ContactActions],
   init() {
@@ -50,7 +52,11 @@ let ContactStore = Reflux.createStore({
     //   this.update(this.contacts);
     // });
   },
-  onSort(by, dir) {
+  onSort(by) {
+    let dir = 1;
+    if(prevSort && prevSort === by) {
+      dir = -1;
+    }
     this.contacts.sort(alphaSort(by, dir));
     this.trigger(this.contacts);
   },

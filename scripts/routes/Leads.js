@@ -1,25 +1,15 @@
 import React from 'react';
 import {Link, RouteHandler} from 'react-router';
+
+import LeadList from '../components/LeadList';
+
 import LeadActions from '../actions/Lead';
 
 const Leads = React.createClass({
   componentDidMount() {
     LeadActions.load();
   },
-  show(e) {
-    let id = e.dataset.id;
-    LeadActions.show(id);
-  },
   render() {
-    console.log('in leads: ', this.props);
-    let leads = this.props.leads.map((lead) => {
-      return (
-        <Link to='lead' params={{id: lead._id}} onClick={this.show} data-id={lead._id}>
-          <li>{lead.contact.name.last + ', ' + lead.contact.name.first}</li>
-        </Link>
-      );
-    });
-
     return (
       <div className='row'>
         <div className='col-lg-12'>
@@ -27,15 +17,13 @@ const Leads = React.createClass({
               <h1>Leads</h1>
           </div>
           <div className='row'>
-            <div className='col-md-6'>
-              <Link to='/contacts/new' className='btn btn-default'>
+            <div className='col-sm-2'>
+              <Link to='leadsNew' className='btn btn-default'>
                 Create New
               </Link>
-              <ul>
-                {leads}
-              </ul>
+              <LeadList leads={this.props.leads} onClick={LeadActions.show} />
             </div>
-            <div className='col-md-6'>
+            <div className='col-sm-10'>
               <RouteHandler {...this.props} />
             </div>
           </div>

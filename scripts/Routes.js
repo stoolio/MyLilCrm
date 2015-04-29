@@ -1,10 +1,11 @@
 import React from 'react';
 import App from './App';
 import Contacts from './routes/Contacts';
-import NewContact from './routes/NewContact';
-import ListContacts from './routes/ListContacts';
+import ContactsNew from './routes/ContactsNew';
+import ContactsList from './routes/ContactsList';
 import Leads from './routes/Leads';
-import LeadDetail from './routes/LeadDetail';
+import LeadsNew from './routes/LeadsNew';
+import LeadDetailRoute from './routes/LeadDetailRoute';
 import Dashboard from './routes/Dashboard';
 import {Route, DefaultRoute, Link, RouteHandler} from 'react-router';
 
@@ -19,12 +20,13 @@ const Blank = React.createClass({
 let Routes = (
   <Route name='app' path='/' handler={App}>
     <Route name='contacts' handler={Contacts}>
-      <Route name='new' handler={NewContact} />
-      <DefaultRoute name='contact-list' handler={ListContacts} />
+      <DefaultRoute name='contacts-default' handler={ContactsList} />
+      <Route name='contactsNew' path='new' handler={ContactsNew} />
     </Route>
     <Route name='leads' handler={Leads}>
-      <DefaultRoute handler={Blank} />
-      <Route name='lead' path=':id' handler={LeadDetail} />
+      <DefaultRoute name='leads-default' handler={Blank} />
+      <Route name='leadsNew' path='new' handler={LeadsNew} />
+      <Route name='lead' path=':id' handler={LeadDetailRoute} />
     </Route>
     <DefaultRoute name='dashboard' handler={Dashboard} />
   </Route>

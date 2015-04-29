@@ -12,7 +12,10 @@ let validMetalColors = 'White Yellow Rose'.split(' ');
 
 let leadSchema = new Schema({
   contact: { type: ObjectId, ref: 'Contact' },
-  budget: { type: Number, min: 0 },
+  budget: {
+    from: { type: Number, min: 0 },
+    to: { type: Number, min: 0 }
+  },
   comments: { type: String },
   diamond: diamondRequestSchema,
   setting: {

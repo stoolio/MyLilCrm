@@ -40,12 +40,12 @@ api.post('/contacts/:id', contacts.update);
 api.delete('/contacts/:id', contacts.destroy);
 
 // leads
-api.param('id', leads.load);
+api.param('leadId', leads.load);
 api.get('/leads', leads.index);
 api.post('/leads/new', leads.create);
-api.get('/leads/:id', leads.show);
-api.post('/leads/:id', leads.update);
-api.delete('/leads/:id', leads.destroy);
+api.get('/leads/:leadId', leads.show);
+api.post('/leads/:leadId', leads.update);
+api.delete('/leads/:leadId', leads.destroy);
 
 app.use('/api', api);
 

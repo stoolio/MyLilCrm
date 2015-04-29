@@ -5,25 +5,19 @@ let Lead = mongoose.model('Lead');
 
 export default {
   load: (req, res, next, id) => {
-    Lead.findOne({ _id: id }, (err, lead) => {
+    Lead.findById(id).populate('contact').exec((err, lead) => {
       if(err) return next(err);
       if(!lead) return next(new Error('not found'));
-      lead.populate('contact')
-        .then(function(popLead) {
-          req.lead = popLead;
-        })
-        .catch(function(err) {
-          console.log('Uh oh! Population failed, all is lost');
-        })
+      req.lead = lead;
       next();
     });
   },
 
   index: (req, res) => {
     Lead.find()
-      .select('budget createdAt _id')
-      .populate('contact', 'name')
+      .select('budget createdAt contact')
       .sort({'createdAt': 'asc'})
+      .populate('contact', 'name')
       .exec((err, leads) => {
         if(err) {
           console.log(err);
@@ -43,7 +37,9 @@ export default {
         console.log(err);
         res.json({error: err});
       } else {
-        res.json({lead: newLead});
+        newLead.populate('contact').exec((err, result) => {
+          res.json({lead: result});
+        });
       }
     });
   },

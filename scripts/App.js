@@ -12,7 +12,6 @@ const App = React.createClass({
     Reflux.connect(ContactStore, 'contacts'),
     Reflux.connect(LeadStore, 'leads')],
   render() {
-    console.log(this.state);
     return (
       <div className='container'>
         <div className='row'>
