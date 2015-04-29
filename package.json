@@ -4,7 +4,10 @@
   "description": "A basic realtime CRM",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "npm run mongo & && npm run backend & && npm run frontend &",
+    "frontend": "node server.js",
+    "backend": "node app/",
+    "mongo": "mongod --config ./mongodb.conf"
   },
   "keywords": [
     "crm",
