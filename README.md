@@ -28,9 +28,11 @@ If you want, running them each in their own terminal might be easier for debuggi
 
 You can start them separately via:
 
-* `npm mongo`
-* `npm backend`
-* `npm frontend`
+* `npm run mongo`
+* `npm run backend`
+* `npm run frontend`
+
+You'll want to start mongodb before the backend so it can connect properly.
 
 ## Backend (app/)
 
