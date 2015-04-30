@@ -16,7 +16,8 @@ const NewContact = React.createClass({
       phone: ''
     };
   },
-  onClick() {
+  onClick(e) {
+    e.preventDefault();
     this.props.onSubmit(this.state);
   },
   handleChange(prop) {

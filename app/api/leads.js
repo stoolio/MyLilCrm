@@ -1,6 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 
+console.log('mongoose: ', typeof mongoose);
+console.log('m.model', typeof mongoose.model);
 let Lead = mongoose.model('Lead');
 
 export default {

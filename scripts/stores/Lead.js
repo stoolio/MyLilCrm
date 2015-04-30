@@ -5,6 +5,8 @@ import Api from '../api/Lead';
 const LeadStore = Reflux.createStore({
   listenables: [LeadActions],
   getInitialState() {
+    this.lead = {};
+    this.leads = [];
     return {
       leads: [],
       lead: {}
@@ -28,7 +30,7 @@ const LeadStore = Reflux.createStore({
       this.updateLead(lead);
     });
   },
-  updateLeads(leads, lead) {
+  updateLeads(leads) {
     this.leads = leads;
     this.trigger({
       leads: leads,
@@ -38,8 +40,8 @@ const LeadStore = Reflux.createStore({
   updateLead(lead) {
     this.lead = lead;
     this.trigger({
-      leads: this.lead,
-      lead: lead,
+      leads: this.leads,
+      lead: lead
     })
   }
 });

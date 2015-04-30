@@ -9,13 +9,12 @@ const LeadDetailRoute = React.createClass({
   propTypes: {
     lead: React.PropTypes.object
   },
-  componentDidMount() {
+  componentWillMount() {
     LeadActions.show(this.getParams().id);
   },
   render() {
-    console.log('route: ', this.props.lead);
     return (
-      <LeadDetail lead={this.props.lead} />
+      <LeadDetail key={this.props.lead._id} lead={this.props.lead} />
     );
   }
 });
