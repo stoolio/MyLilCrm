@@ -3,8 +3,6 @@ import React from 'react';
 import Field from './Field';
 import Submit from './Submit';
 
-import ContactActions from './../actions/Contacts';
-
 const NewContact = React.createClass({
   propTypes: {
     onSubmit: React.PropTypes.func.isRequired

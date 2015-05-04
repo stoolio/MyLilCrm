@@ -24,7 +24,8 @@ const Textarea = React.createClass({
                   type={this.props.type}
                   placeholder={this.props.placeholder}
                   id={tag}
-                  className='form-control' />
+                  className='form-control'
+                  rows='3' />
         </div>
       </div>
     );

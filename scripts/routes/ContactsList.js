@@ -2,7 +2,7 @@ import React from 'react';
 
 import ContactList from '../components/ContactList';
 
-import ContactActions from './../actions/Contacts';
+import ContactActions from './../actions/ContactActions';
 
 const ListContacts = React.createClass({
   propTypes: {

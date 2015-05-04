@@ -6,6 +6,8 @@ import ContactsList from './routes/ContactsList';
 import Leads from './routes/Leads';
 import LeadsNew from './routes/LeadsNew';
 import LeadDetailRoute from './routes/LeadDetailRoute';
+import LoginRoute from './routes/LoginRoute';
+import SignupRoute from './routes/SignupRoute';
 import Dashboard from './routes/Dashboard';
 import {Route, DefaultRoute, Link, RouteHandler} from 'react-router';
 
@@ -28,6 +30,8 @@ let Routes = (
       <Route name='leadsNew' path='new' handler={LeadsNew} />
       <Route name='lead' path=':id' handler={LeadDetailRoute} />
     </Route>
+    <Route name='login' handler={LoginRoute} />
+    <Route name='signup' handler={SignupRoute} />
     <DefaultRoute name='dashboard' handler={Dashboard} />
   </Route>
 );

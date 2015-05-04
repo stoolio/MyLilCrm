@@ -1,7 +1,15 @@
 import React from 'react';
 import {Link} from 'react-router';
 
+import UserActions from '../actions/UserActions';
+
 const MenuLink = React.createClass({
+  propTypes: {
+    currentUser: React.PropTypes.oneOfType([
+      React.PropTypes.bool,
+      React.PropTypes.object
+    ])
+  },
   contextTypes: {
     router: React.PropTypes.func
   },
@@ -21,6 +29,20 @@ const MenuLink = React.createClass({
 
 const Header = React.createClass({
   render() {
+    let loggedIn = false;
+    let loginLink = (() => {
+      if (this.props.currentUser === false) {
+        return (
+          <MenuLink to={'login'}>Login</MenuLink>
+        );
+      } else {
+        return (
+          <MenuLink to='dashboard' onClick={() => { UserActions.logout(); }}>Logout</MenuLink>
+        );
+      }
+    })();
+    if (this.props.currentUser !== false)
+      loggedIn = true;
     return (
       <nav className='navbar navbar-default'>
         <div className='container-fluid'>
@@ -30,7 +52,7 @@ const Header = React.createClass({
             </Link>
           </div>
           <div className='collapse navbar-collapse'>
-            <ul className='nav navbar-nav'>
+            <ul className='nav navbar-nav navbar-left'>
               <MenuLink to='contacts'>
                 Contacts
               </MenuLink>
@@ -45,6 +67,9 @@ const Header = React.createClass({
                   <li><a href='#'>Consignment</a></li>
                 </ul>
               </li>
+            </ul>
+            <ul className='nav navbar-nav navbar-right'>
+              {loginLink}
             </ul>
           </div>
         </div>

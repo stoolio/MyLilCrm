@@ -1,4 +1,9 @@
 import React from 'react';
+import moment from 'moment';
+
+import Textarea from './Textarea';
+import Field from './Field';
+import Submit from './Submit';
 
 // contact: { type: ObjectId, ref: 'Contact' },
 // budget: {
@@ -24,25 +29,64 @@ function price(num) {
 
 const LeadDetail = React.createClass({
   propTypes: {
-    lead: React.PropTypes.object.isRequired
+    lead: React.PropTypes.object.isRequired,
+    subject: React.PropTypes.string.isRequired,
+    content: React.PropTypes.string.isRequired,
+    subjectChange: React.PropTypes.func.isRequired,
+    contentChange: React.PropTypes.func.isRequired,
+    createNote: React.PropTypes.func.isRequired
+  },
+  addNote(e) {
+    e.preventDefault();
+    let note = React.findDOMNode(this.refs.note);
+    let heading = React.findDOMNode(this.refs.noteHeading);
+    this.props.createNote({
+      subject: heading.value,
+      content: note.value
+    });
   },
   render() {
     if(Object.keys(this.props.lead).length === 0) return (
       <h1>Loading...</h1>
     );
-    let {contact, budget, comments} = this.props.lead;
+    let {contact, budget, comments, notes} = this.props.lead;
     let fullName = 'No Name';
     if (contact === undefined) {
       let {name} = contact;
       fullName = `${name.first}, ${name.last}`;
     }
 
+    notes = notes.reverse().map(note => {
+      return (
+        <a className='list-group-item'>
+          <h4 className='list-group-item-heading'>
+            {note.subject + ' - ' + moment(note.createdAt).fromNow()}
+          </h4>
+          <hr />
+          <p className='list-group-item-text'>
+            {note.content}
+          </p>
+        </a>
+      )
+    })
+
     return (
-      <div className='lead'>
+      <div>
         <h2>{fullName}</h2>
         <h3>Budget: {price(budget.from)}-{price(budget.to)}</h3>
-        <h3>Comments</h3>
-        <p>{comments}</p>
+        <div className='panel panel-default'>
+          <div className='panel-heading'>Comments</div>
+          <div className='panel-body'>{comments}</div>
+        </div>
+        <hr />
+        <form className='form-horizontal'>
+          <Field ref='noteHeading' value={this.props.subject} name='' placeholder='Subject' publishChange={this.props.subjectChange} />
+          <Textarea ref='note' value={this.props.content} placeholder='Notes' publishChange={this.props.contentChange} />
+          <Submit onClick={this.addNote} />
+        </form>
+        <div className='list-group'>
+          {notes}
+        </div>
       </div>
     );
   }

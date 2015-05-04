@@ -14,32 +14,24 @@ let handle = (err) => {
 };
 
 export default {
-  load(cb) {
+  create(user, cb) {
     return request
-      .get(server + '/api/leads')
+      .post(server + '/api/users/new')
+      .send(user)
       .on('error', (err) => {
         handle(err);
         cb(err);
       })
       .end(cb);
   },
-  create(lead, cb) {
+  login(user, cb) {
     return request
-      .post(server + '/api/leads/new')
-      .send(lead)
-      .on('error', (err) => {
-        handle(err);
-        cb(err);
-      })
-      .end(cb);
-  },
-  show(id, cb) {
-    request
-      .get(server + '/api/leads/' + id)
-      .on('error', (err) => {
+      .post(server + '/api/users/login')
+      .send(user)
+      .on('error', err => {
         handle(err);
         cb(err);
       })
       .end(cb);
   }
-}
+};

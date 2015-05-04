@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
-import LeadActions from '../actions/Lead';
-import Api from '../api/Lead';
+import LeadActions from '../actions/LeadActions';
+import Api from '../api/LeadApi';
 
 const LeadStore = Reflux.createStore({
   listenables: [LeadActions],
@@ -23,6 +23,12 @@ const LeadStore = Reflux.createStore({
       let theLead = JSON.parse(res.text).lead;
       this.updateLeads([theLead].concat(this.leads));
     });
+  },
+  onAddNote(id, note) {
+    Api.createNote(id, note, (err, res) => {
+      let lead = JSON.parse(res.text).lead;
+      this.updateLead(lead);
+    })
   },
   onShow(id) {
     Api.show(id, (err, res) => {

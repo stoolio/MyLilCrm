@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
-import ContactActions from '../actions/Contacts';
-import Api from '../api/Contacts';
+import ContactActions from '../actions/ContactActions';
+import Api from '../api/ContactApi';
 
 function get(obj, path) {
   if(path.indexOf('.') === -1) {

@@ -3,7 +3,7 @@ import {Link, RouteHandler} from 'react-router';
 
 import LeadList from '../components/LeadList';
 
-import LeadActions from '../actions/Lead';
+import LeadActions from '../actions/LeadActions';
 
 const Leads = React.createClass({
   componentWillMount() {
@@ -17,13 +17,13 @@ const Leads = React.createClass({
               <h1>Leads</h1>
           </div>
           <div className='row'>
-            <div className='col-sm-2'>
+            <div className='col-sm-3'>
               <Link to='leadsNew' className='btn btn-default'>
                 Create New
               </Link>
               <LeadList leads={this.props.leads} onClick={LeadActions.show} />
             </div>
-            <div className='col-sm-10'>
+            <div className='col-sm-9'>
               <RouteHandler {...this.props} />
             </div>
           </div>

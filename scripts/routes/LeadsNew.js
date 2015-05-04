@@ -2,8 +2,8 @@ import React from 'react';
 
 import LeadForm from '../components/LeadForm';
 
-import LeadActions from './../actions/Lead';
-import ContactActions from '../actions/Contacts';
+import LeadActions from './../actions/LeadActions';
+import ContactActions from '../actions/ContactActions';
 
 const LeadsNew = React.createClass({
   propTypes: {

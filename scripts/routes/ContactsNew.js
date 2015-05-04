@@ -3,7 +3,7 @@ import {Navigation} from 'react-router';
 
 import ContactForm from '../components/ContactForm';
 
-import ContactActions from './../actions/Contacts';
+import ContactActions from './../actions/ContactActions';
 
 const ContactsNew = React.createClass({
   contextTypes: {
