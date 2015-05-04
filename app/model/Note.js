@@ -6,7 +6,8 @@ let ObjectId = Schema.Types.ObjectId;
 
 let noteSchema = new Schema({
   user: { type: ObjectId, ref: 'User' },
-  data: String
+  subject: String,
+  content: String
 })
 
 noteSchema.plugin(createdAndModifiedAt);

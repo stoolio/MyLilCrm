@@ -1,8 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
 
-console.log('mongoose: ', typeof mongoose);
-console.log('m.model', typeof mongoose.model);
 let Lead = mongoose.model('Lead');
 
 export default {
@@ -21,7 +19,6 @@ export default {
       .populate('contact')
       .sort({'createdAt': 'asc'})
       .exec((err, leads) => {
-        console.log(leads);
         if(err) {
           console.log(err);
           res.json({error: '500'});
@@ -37,11 +34,25 @@ export default {
     let lead = new Lead(req.body);
     lead.save((err, newLead) => {
       if(err) {
+        console.log(err);
         res.json({error: err});
       } else {
         newLead.populate('contact').exec((err, result) => {
           res.json({lead: result});
         });
+      }
+    });
+  },
+
+  createNote: (req, res) => {
+    let lead = req.lead;
+    lead.notes.push(req.body);
+    lead.save((err, lead) => {
+      if (err) {
+        console.log(err);
+        res.json({error: err})
+      } else {
+        res.json({lead: lead});
       }
     });
   },

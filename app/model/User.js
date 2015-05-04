@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import createdAndModifiedAt from '../lib/createdAndModifiedAt';
 
 let Schema = mongoose.Schema;
 
@@ -18,6 +19,8 @@ let userSchema = new Schema({
   }
 });
 
+userSchema.plugin(createdAndModifiedAt);
+
 userSchema.pre('save', function(next) {
   let user = this;
   if(this.isModified('password') || this.isNew) {
@@ -34,9 +37,9 @@ userSchema.pre('save', function(next) {
           }
         });
       }
-    }); else {
-      return next();
-    }
+    });
+  } else {
+    return next();
   }
 });
 
@@ -50,6 +53,4 @@ userSchema.methods.comparePassword = function(pass, cb) {
   });
 }
 
-let User = mongoose.model('User', userSchema);
-
-export default User;
+export default mongoose.model('User', userSchema);
