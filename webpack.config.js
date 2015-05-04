@@ -15,7 +15,8 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new webpack.IgnorePlugin(/locale/)
   ],
   resolve: {
     extensions: ['', '.js', '.jsx', '.css', '.scss']
