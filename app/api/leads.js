@@ -18,9 +18,10 @@ export default {
   index: (req, res) => {
     Lead.find()
       .select('budget createdAt contact')
+      .populate('contact')
       .sort({'createdAt': 'asc'})
-      .populate('contact', 'name')
       .exec((err, leads) => {
+        console.log(leads);
         if(err) {
           console.log(err);
           res.json({error: '500'});
@@ -36,7 +37,6 @@ export default {
     let lead = new Lead(req.body);
     lead.save((err, newLead) => {
       if(err) {
-        console.log(err);
         res.json({error: err});
       } else {
         newLead.populate('contact').exec((err, result) => {

@@ -3,6 +3,7 @@ import React from 'react';
 import Field from './Field';
 import Submit from './Submit';
 import Select from './Select';
+import Textarea from './Textarea';
 
 const LeadForm = React.createClass({
   propTypes: {
@@ -54,7 +55,6 @@ const LeadForm = React.createClass({
       }
       cursor[keys[i]] = val;
     }
-    console.log(newState);
     this.setState(newState);
   },
   handleChange(field) {
@@ -72,7 +72,7 @@ const LeadForm = React.createClass({
               <Field value={this.state.budget.from} publishChange={this.handleChange('budget.from')} name='Budget From' type='number' placeholder='From' />
               <Field value={this.state.budget.to} publishChange={this.handleChange('budget.to')} name='Budget To' type='number' placeholder='To' />
             </div>
-            <Field value={this.state.comments} publishChange={this.handleChange('comments')}  name='Comments' type='textarea' placeholder='Enter additional information' />
+            <Textarea value={this.state.comments} publishChange={this.handleChange('comments')} name='Comments' placeholder='Enter additional information' />
             <Submit onClick={this.onClick} />
           </form>
         </div>

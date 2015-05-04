@@ -6,18 +6,24 @@ const LeadList = React.createClass({
     leads: React.PropTypes.arrayOf(React.PropTypes.object),
     onClick: React.PropTypes.func
   },
-  show(e) {
+
+  onClick(e) {
     if(e.target.tagName === 'A') {
       let id = e.target.dataset.id;
-      // if(id !== undefined) this.props.onClick(id);
+      if(id !== undefined) {
+        this.props.onClick(id);
+      }
     }
   },
+
   render() {
-    let leads = this.props.leads.map((lead) => {
+    let leads = this.props.leads.map(lead => {
       return (
         <li>
-          <Link key={lead._id} to='lead' params={{id: lead._id}} onClick={this.show} data-id={lead._id}>
-            {lead.contact.name.last + ', ' + lead.contact.name.first}
+          <Link key={lead._id} to='lead' params={{id: lead._id}} data-id={lead._id}>
+            {lead.contact === null ?
+               'Unknown Name' : 
+               lead.contact.name.last + ', ' + lead.contact.name.first}
           </Link>
         </li>
       );

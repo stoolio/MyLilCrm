@@ -6,6 +6,7 @@ const ContactItem = React.createClass({
     onRemove: React.PropTypes.func.isRequired
   },
   onRemove(e) {
+    e.preventDefault();
     this.props.onRemove(this.props.contact._id);
   },
   render() {

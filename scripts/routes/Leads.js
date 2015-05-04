@@ -9,9 +9,6 @@ const Leads = React.createClass({
   componentWillMount() {
     LeadActions.load();
   },
-  detailChange() {
-    LeadActions.show(this.getParams().id);
-  },
   render() {
     return (
       <div className='row'>
@@ -27,7 +24,7 @@ const Leads = React.createClass({
               <LeadList leads={this.props.leads} onClick={LeadActions.show} />
             </div>
             <div className='col-sm-10'>
-              <RouteHandler {...this.props} detailChange={this.detailChange} />
+              <RouteHandler {...this.props} />
             </div>
           </div>
         </div>

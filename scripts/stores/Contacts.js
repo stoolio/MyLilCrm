@@ -2,21 +2,33 @@ import Reflux from 'reflux';
 import ContactActions from '../actions/Contacts';
 import Api from '../api/Contacts';
 
+function get(obj, path) {
+  if(path.indexOf('.') === -1) {
+    return obj[path];
+  } else {
+    let keys = path.split('.'),
+        len = keys.length - 1,
+        cursor,
+        i = -1;
+    cursor = obj;
+    while(++i < len) {
+      cursor = cursor[keys[i]];
+    }
+    return cursor[keys[i]];
+  }
+}
+
 let alphaSort = function(by, dir) {
   return (a, b) => {
-    if(by.indexOf('.') !== -1) {
-      a = a['name'];
-      b = b['name'];
-      by = by.substr(by.indexOf('.') + 1);
-    }
-    a = a[by];
-    b = b[by];
+    a = get(a, by);
+    b = get(b, by);
     if(a < b) return -1 * dir;
     if(a > b) return 1 * dir;
     return 0;
   };
 };
 
+let sortDir = 1;
 let prevSort = false;
 
 let ContactStore = Reflux.createStore({
@@ -53,11 +65,13 @@ let ContactStore = Reflux.createStore({
     // });
   },
   onSort(by) {
-    let dir = 1;
     if(prevSort && prevSort === by) {
-      dir = -1;
+      sortDir = sortDir * -1;
+    } else {
+      sortDir = 1;
     }
-    this.contacts.sort(alphaSort(by, dir));
+    this.contacts.sort(alphaSort(by, sortDir));
+    prevSort = by;
     this.trigger(this.contacts);
   },
   getIndexById(id) {

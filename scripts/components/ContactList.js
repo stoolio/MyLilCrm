@@ -9,6 +9,7 @@ const ContactList = React.createClass({
     onRemove: React.PropTypes.func.isRequired
   },
   onSort(e) {
+    e.preventDefault();
     if(e.target.dataset.by !== undefined) {
       this.props.onSort(e.target.dataset.by);
     }
