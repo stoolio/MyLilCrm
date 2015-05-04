@@ -4,10 +4,12 @@ import {json} from 'body-parser';
 // DB Schema
 import './model/Contact';
 import './model/Lead';
+import './model/User';
 
 // API Routes
 import contacts from './api/contacts';
 import leads from './api/leads';
+import users from './api/users';
 
 // Connect to DB
 import db from './db';
@@ -43,9 +45,15 @@ api.delete('/contacts/:id', contacts.destroy);
 api.param('leadId', leads.load);
 api.get('/leads', leads.index);
 api.post('/leads/new', leads.create);
+api.post('/leads/:leadId/notes/new', leads.createNote);
 api.get('/leads/:leadId', leads.show);
 api.post('/leads/:leadId', leads.update);
 api.delete('/leads/:leadId', leads.destroy);
+
+// users
+api.param('userId', users.load);
+api.post('/users/new', users.create);
+api.post('/users/login', users.login);
 
 app.use('/api', api);
 
