@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import createdAndModifiedAt from '../lib/createdAndModifiedAt';
-import stateList from '../lib/states';
+import stateList from '../validation/states';
 
 let Schema = mongoose.Schema;
 

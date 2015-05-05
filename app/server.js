@@ -38,6 +38,7 @@ api.param('id', contacts.load);
 api.get('/contacts', contacts.index);
 api.post('/contacts/new', contacts.create);
 api.get('/contacts/:id', contacts.show);
+// api.get('/contacts/:id/lead', contacts.lead);
 api.post('/contacts/:id', contacts.update);
 api.delete('/contacts/:id', contacts.destroy);
 

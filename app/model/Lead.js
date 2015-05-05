@@ -1,14 +1,11 @@
 import mongoose from 'mongoose';
 import createdAndModifiedAt from '../lib/createdAndModifiedAt';
 import {Enum} from '../lib/modelHelpers';
-import noteSchema from './Note';
-import diamondRequestSchema from './diamondRequestSchema';
+import noteSchema from './noteSchema';
+import {metals, metalColors} from '../validation/rings';
 
 let Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId;
-
-let validMetalQualities = '14kt 18kt Platinum Other'.split(' ');
-let validMetalColors = 'White Yellow Rose'.split(' ');
 
 let leadSchema = new Schema({
   contact: { type: ObjectId, ref: 'Contact' },
@@ -17,13 +14,13 @@ let leadSchema = new Schema({
     to: { type: Number, min: 0 }
   },
   comments: { type: String },
-  diamond: diamondRequestSchema,
+  diamond: { type: ObjectId, ref: 'DiamondRequest'},
   setting: {
     images: [String],
     style: String,
     metal: {
-      quality: Enum(validMetalQualities),
-      color: Enum(validMetalColors)
+      quality: Enum(metals),
+      color: Enum(metalColors)
     }
   },
   notes: [noteSchema]
