@@ -37,7 +37,7 @@ export default {
         console.log(err);
         res.json({error: err});
       } else {
-        newLead.populate('contact').exec((err, result) => {
+        newLead.populate('contact', (err, result) => {
           res.json({lead: result});
         });
       }
