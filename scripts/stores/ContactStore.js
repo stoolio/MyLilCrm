@@ -86,14 +86,13 @@ let ContactStore = Reflux.createStore({
       if (loading) return;
       ContactActions.load();
     } else {
-      str = str.toLowerCase();
+      let regex = new RegExp(str, 'i');
       this.filter(this.contacts.filter(contact => {
-        let {name} = contact;
-        let fullName = name.first + ' ' + name.last;
-        if (fullName.toLowerCase().includes(str))
-          return true;
-        else
+        let searchStr = `${contact.name.first} ${contact.name.last} ${contact.email}`;
+        if (searchStr.search(regex) === -1)
           return false;
+        else
+          return true;
       }));
     }
   },
