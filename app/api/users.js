@@ -15,7 +15,7 @@ export default {
 
   index: (req, res) => {
     User.find()
-      .sort({'createdAt': 'asc'})
+      .select('_id username')
       .exec((err, users) => {
         if(err) {
           console.log(err);
@@ -46,6 +46,9 @@ export default {
         console.log(err);
         res.json({error: err.text});
       } else {
+        if(user === null) {
+          res.json({login: false, user: null});
+        }
         user.comparePassword(password, (err, isMatch) => {
           if (err) {
             console.log(err);

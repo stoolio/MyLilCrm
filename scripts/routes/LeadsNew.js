@@ -1,4 +1,5 @@
 import React from 'react';
+// import {Navigation} from 'react-router';
 
 import LeadForm from '../components/LeadForm';
 
@@ -6,11 +7,20 @@ import LeadActions from './../actions/LeadActions';
 import ContactActions from '../actions/ContactActions';
 
 const LeadsNew = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  // mixins: [Navigation],
   propTypes: {
     contacts: React.PropTypes.array
   },
   componentDidMount() {
     ContactActions.load();
+  },
+  onSubmit(lead) {
+    LeadActions.add(lead);
+    this.context.router.transitionTo('leads-default');
+    // this.transitionTo('leads-default');
   },
   render() {
     if(this.props.contacts.length === 0) {
@@ -31,7 +41,7 @@ const LeadsNew = React.createClass({
     return (
       <div className='row'>
         <div className='col-lg-6'>
-          <LeadForm options={options} onSubmit={LeadActions.add} />
+          <LeadForm options={options} onSubmit={this.onSubmit} />
         </div>
       </div>
     );

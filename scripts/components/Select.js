@@ -13,7 +13,6 @@ const Select = React.createClass({
     ])
   },
   onChange(e) {
-    console.log(e.target.value);
     this.props.publishChange(e.target.value);
   },
   parseOptions() {

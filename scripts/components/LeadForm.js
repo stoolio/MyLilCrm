@@ -19,7 +19,7 @@ const LeadForm = React.createClass({
   getInitialState() {
     return {
       contact: '',
-      budget: { 
+      budget: {
         from: 0,
         to: 0
       },

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navigation} from 'react-router';
+// import {Navigation} from 'react-router';
 
 import ContactForm from '../components/ContactForm';
 
@@ -12,7 +12,6 @@ const ContactsNew = React.createClass({
   // mixins: [Navigation],
   add(data) {
     ContactActions.add(data);
-    console.log('attempting to transition');
     this.context.router.transitionTo('contacts-default');
     // this.transitionTo('contacts-default');
   },

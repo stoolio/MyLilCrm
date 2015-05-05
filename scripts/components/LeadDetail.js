@@ -51,16 +51,17 @@ const LeadDetail = React.createClass({
     );
     let {contact, budget, comments, notes} = this.props.lead;
     let fullName = 'No Name';
-    if (contact === undefined) {
+    if (contact !== undefined) {
       let {name} = contact;
       fullName = `${name.first}, ${name.last}`;
     }
 
     notes = notes.reverse().map(note => {
       return (
-        <a className='list-group-item'>
+        <a key={note._id} className='list-group-item'>
           <h4 className='list-group-item-heading'>
             {note.subject + ' - ' + moment(note.createdAt).fromNow()}
+            <span className='text-capitalize' style={{positon:'absolute',right:20}}>{this.props.users[note.user]}</span>
           </h4>
           <hr />
           <p className='list-group-item-text'>
@@ -80,8 +81,16 @@ const LeadDetail = React.createClass({
         </div>
         <hr />
         <form className='form-horizontal'>
-          <Field ref='noteHeading' value={this.props.subject} name='' placeholder='Subject' publishChange={this.props.subjectChange} />
-          <Textarea ref='note' value={this.props.content} placeholder='Notes' publishChange={this.props.contentChange} />
+          <Field  ref='noteHeading'
+                  value={this.props.subject}
+                  name=''
+                  type='text'
+                  placeholder='Subject'
+                  publishChange={this.props.subjectChange} />
+          <Textarea ref='note'
+                    value={this.props.content}
+                    placeholder='Notes'
+                    publishChange={this.props.contentChange} />
           <Submit onClick={this.addNote} />
         </form>
         <div className='list-group'>

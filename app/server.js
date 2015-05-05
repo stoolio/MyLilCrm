@@ -53,6 +53,7 @@ api.delete('/leads/:leadId', leads.destroy);
 
 // users
 api.param('userId', users.load);
+api.get('/users', users.index);
 api.post('/users/new', users.create);
 api.post('/users/login', users.login);
 

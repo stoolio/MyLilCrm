@@ -7,9 +7,33 @@ import Api from '../api/UserApi';
 
 const UserStore = Reflux.createStore({
   listenables: [UserActions],
+  init() {
+    this.state = {
+      users: {},
+      currentUser: false,
+    };
+  },
   getInitialState() {
-    this.currentUser = false;
-    return this.currentUser;
+    this.state = {
+      users: {},
+      currentUser: false,
+    };
+    return this.state;
+  },
+  onLoad() {
+    console.log('userstore state: ', this.state);
+    Api.load((err, res) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let users = JSON.parse(res.text).users;
+        this.state.users = users.reduce((acc, user) => {
+          acc[user._id] = user.username;
+          return acc;
+        }, {});
+        this.trigger(this.state);
+      }
+    })
   },
   onCreate(user) {
     Api.create(user, (err, res) => {
@@ -21,7 +45,6 @@ const UserStore = Reflux.createStore({
   onLogin(user) {
     Api.login(user, (err, res) => {
       let {login, user} = JSON.parse(res.text);
-      console.log('onlogin: ', user);
       if (login) {
         MessageActions.add({
           callout: 'Success!',
@@ -30,7 +53,11 @@ const UserStore = Reflux.createStore({
         });
         this.update(user);
       } else {
-        console.log('Login Failed!');
+        MessageActions.add({
+          callout: 'Error: ',
+          message: `Login failed...`,
+          type: 'danger'
+        });
       }
     })
   },
@@ -38,8 +65,8 @@ const UserStore = Reflux.createStore({
     this.update(false);
   },
   update(user) {
-    this.currentUser = user;
-    this.trigger(user);
+    this.state.currentUser = user;
+    this.trigger(this.state);
   }
 });
 

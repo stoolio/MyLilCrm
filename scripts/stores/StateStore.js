@@ -16,6 +16,7 @@ let StateStore = Reflux.createStore({
       leads: [],
       lead: {},
       contacts: [],
+      users: {},
       currentUser: false,
       messages: []
     };
@@ -30,8 +31,9 @@ let StateStore = Reflux.createStore({
     this.state.lead = leadData.lead || {};
     this.trigger(this.state);
   },
-  onUserChange(user) {
-    this.state.currentUser = user;
+  onUserChange(userInfo) {
+    this.state.currentUser = userInfo.currentUser;
+    this.state.users = userInfo.users;
     this.trigger(this.state);
   },
   onMessageChange(messages) {

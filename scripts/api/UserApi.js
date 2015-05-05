@@ -14,6 +14,15 @@ let handle = (err) => {
 };
 
 export default {
+  load(cb) {
+    return request
+      .get(server + '/api/users')
+      .on('error', err => {
+        handle(err);
+        cb(err);
+      })
+      .end(cb);
+  },
   create(user, cb) {
     return request
       .post(server + '/api/users/new')

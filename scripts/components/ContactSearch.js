@@ -20,7 +20,6 @@ function debounce(fn, delay) {
 }
 
 let searchContacts = debounce(searchStr => {
-  console.log('firing search action with: ', searchStr);
   ContactActions.search(searchStr);
 }, 500);
 
@@ -41,12 +40,10 @@ const ContactSearch = React.createClass({
     };
   },
   handleChange(val) {
-    console.log('handleChange: ', val);
     this.setState({
       searchStr: val
     });
-    if (val.length > 1) {
-      console.log('searching with: ', val);
+    if (val.length > 2) {
       searchContacts(val);
     } else {
       ContactActions.search('');
