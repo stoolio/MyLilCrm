@@ -7,6 +7,7 @@ import FlashMessage from './FlashMessage';
 import MessageActions from '../actions/MessageActions';
 
 const Flash = React.createClass({
+  mixins: [PureRenderMixin],
   propTypes: {
     messages: React.PropTypes.array
   },
@@ -16,8 +17,8 @@ const Flash = React.createClass({
     };
   },
   render() {
-    console.log('flash render: ', this.props.messages);
     if (this.props.messages.length === 0) return null;
+    console.log('actual render');
     let messages = this.props.messages.map((message, i) => {
       return (
         <FlashMessage key={message.key} message={message} remove={this.remove(i)} />
