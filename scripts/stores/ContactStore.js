@@ -31,6 +31,9 @@ let alphaSort = function(by, dir) {
 let sortDir = 1;
 let prevSort = false;
 
+let loading = false,
+    loaded = false;
+
 let ContactStore = Reflux.createStore({
   listenables: [ContactActions],
   init() {
@@ -41,8 +44,11 @@ let ContactStore = Reflux.createStore({
     return this.contacts;
   },
   loadContacts() {
+    loading = true;
     Api.load((err, res) => {
       this.contacts = JSON.parse(res.text).contacts;
+      loaded = true;
+      loading = false;
       this.trigger(this.contacts);
     });
   },
@@ -74,6 +80,23 @@ let ContactStore = Reflux.createStore({
     prevSort = by;
     this.trigger(this.contacts);
   },
+  onSearch(str) {
+    if(str.length === 0) this.update(this.contacts);
+    if (!loaded) {
+      if (loading) return;
+      ContactActions.load();
+    } else {
+      str = str.toLowerCase();
+      this.filter(this.contacts.filter(contact => {
+        let {name} = contact;
+        let fullName = name.first + ' ' + name.last;
+        if (fullName.toLowerCase().includes(str))
+          return true;
+        else
+          return false;
+      }));
+    }
+  },
   getIndexById(id) {
     let i = -1, len = this.contacts.length;
     while(++i < len) {
@@ -85,6 +108,9 @@ let ContactStore = Reflux.createStore({
   },
   update(contacts) {
     this.contacts = contacts;
+    this.trigger(contacts);
+  },
+  filter(contacts) {
     this.trigger(contacts);
   }
 });

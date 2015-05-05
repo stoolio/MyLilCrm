@@ -4,7 +4,8 @@ let ContactActions = Reflux.createActions([
   'load',
   'add',
   'remove',
-  'sort'
+  'sort',
+  'search'
 ]);
 
 export default ContactActions;
