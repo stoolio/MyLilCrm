@@ -18,7 +18,6 @@ const Flash = React.createClass({
   },
   render() {
     if (this.props.messages.length === 0) return null;
-    console.log('actual render');
     let messages = this.props.messages.map((message, i) => {
       return (
         <FlashMessage key={message.key} message={message} remove={this.remove(i)} />
