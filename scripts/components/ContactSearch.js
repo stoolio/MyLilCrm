@@ -4,8 +4,10 @@ import Field from './Field';
 
 import ContactActions from '../actions/ContactActions';
 
-// debounces and calls fn with last passed value
-function debounce(fn, delay) {
+// throttles fn calling only once per delay
+// more importantly, it calls fn with the
+// last passed arg
+function throttle(fn, delay) {
   let queued = false,
       current;
   return val => {
@@ -19,7 +21,7 @@ function debounce(fn, delay) {
   }
 }
 
-let searchContacts = debounce(searchStr => {
+let searchContacts = throttle(searchStr => {
   ContactActions.search(searchStr);
 }, 500);
 
@@ -50,22 +52,19 @@ const ContactSearch = React.createClass({
     }
   },
   render() {
-    let results = this.props.displayResults ?
-      (<ul>{
-        this.props.results.map(result => {
-          let {name} = result;
-          return (
-            <li>{`${name.first} ${name.last}`}</li>
-          );
-        })
-      }</ul>) :
-      null;
+    // let results = this.props.displayResults ?
+    //   (<ul>{
+    //     this.props.results.map(result => {
+    //       let {name} = result;
+    //       return (
+    //         <li>{`${name.first} ${name.last}`}</li>
+    //       );
+    //     })
+    //   }</ul>) :
+    //   null;
 
     return (
-      <div>
-        <Field value={this.state.searchStr} name='Contact' type='text' placeholder={this.props.placeholder} publishChange={this.handleChange} />
-        {results}
-      </div>
+      <Field value={this.state.searchStr} type='text' placeholder={this.props.placeholder} publishChange={this.handleChange} />
     );
   }
 });
