@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ContactList from '../components/ContactList';
-import ContactSearch from '../components/ContactSearch';
+import AutoSearch from '../components/AutoSearch';
 
 import ContactActions from './../actions/ContactActions';
 
@@ -21,7 +21,8 @@ const ListContacts = React.createClass({
   render() {
     return (
       <div>
-        <ContactSearch placeholder='Search Contacts...' displayResults={false} />
+        <AutoSearch placeholder='Search Contacts...'
+                    search={ContactActions.search} />
         <ContactList onSort={this.onSort} onRemove={this.onRemove} contacts={this.props.contacts} />
       </div>
     );
