@@ -19,20 +19,18 @@ const LeadList = React.createClass({
   render() {
     let leads = this.props.leads.map(lead => {
       return (
-        <li key={lead._id} >
-          <Link to='lead' params={{id: lead._id}} data-id={lead._id}>
-            {lead.contact === null ?
-               'Unknown Name' :
-               lead.contact.name.last + ', ' + lead.contact.name.first}
-          </Link>
-        </li>
+        <Link key={lead._id} to='lead' params={{id: lead._id}} data-id={lead._id} className='list-group-item'>
+          {lead.contact === null ?
+             'Unknown Name' :
+             lead.contact.name.last + ', ' + lead.contact.name.first}
+        </Link>
       );
     });
 
     return (
-      <ul onClick={this.onClick}>
+      <div className='list-group' onClick={this.onClick}>
         {leads}
-      </ul>
+      </div>
     );
   }
 });
