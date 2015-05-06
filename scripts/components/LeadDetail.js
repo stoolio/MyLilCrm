@@ -62,7 +62,7 @@ const LeadDetail = React.createClass({
         <a key={note._id} className='list-group-item'>
           <h4 className='list-group-item-heading'>
             {note.subject + ' - ' + moment(note.createdAt).fromNow()}
-            <span className='text-capitalize' style={{positon:'absolute',right:20}}>{this.props.users[note.user]}</span>
+            <span className='text-capitalize' style={{position:'absolute',right:20}}>{this.props.users[note.user]}</span>
           </h4>
           <hr />
           <p className='list-group-item-text'>

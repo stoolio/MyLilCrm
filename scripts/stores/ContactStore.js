@@ -81,7 +81,7 @@ let ContactStore = Reflux.createStore({
     this.trigger(this.contacts);
   },
   onSearch(str) {
-    if(str.length === 0) this.update(this.contacts);
+    if(str.length === 0) this.filter(this.contacts);
     if (!loaded) {
       if (loading) return;
       ContactActions.load();
