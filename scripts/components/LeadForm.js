@@ -64,19 +64,17 @@ const LeadForm = React.createClass({
   },
   render() {
     return (
-      <div className='row'>
-        <div className='col-lg-6'>
-          <form className='form-horizontal'>
+      <form className='form-horizontal'>
+        <div className='form-group'>
+          <div className='col-md-offset-5 col-md-4'>
             <Select value={this.state.contact} publishChange={this.handleChange('contact')} name='Contact' options={this.props.options} />
-            <div className='form-group'>
-              <Field value={this.state.budget.from} publishChange={this.handleChange('budget.from')} name='Budget From' type='number' placeholder='From' />
-              <Field value={this.state.budget.to} publishChange={this.handleChange('budget.to')} name='Budget To' type='number' placeholder='To' />
-            </div>
-            <Textarea value={this.state.comments} publishChange={this.handleChange('comments')} name='Comments' placeholder='Enter additional information' />
-            <Submit onClick={this.onClick} />
-          </form>
+          </div>
         </div>
-      </div>
+        <Field value={this.state.budget.from} publishChange={this.handleChange('budget.from')} name='Budget From' type='number' placeholder='From' />
+        <Field value={this.state.budget.to} publishChange={this.handleChange('budget.to')} name='Budget To' type='number' placeholder='To' />
+        <Textarea value={this.state.comments} publishChange={this.handleChange('comments')} name='Comments' placeholder='Enter additional information' />
+        <Submit onClick={this.onClick} />
+      </form>
     );
   }
 });

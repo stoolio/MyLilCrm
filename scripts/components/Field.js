@@ -1,4 +1,6 @@
 import React from 'react';
+import isUndefined from 'lodash/lang/isUndefined';
+import snakeCase from 'lodash/string/snakeCase';
 
 const Field = React.createClass({
   propTypes: {
@@ -13,13 +15,18 @@ const Field = React.createClass({
     this.props.publishChange(e.target.value);
   },
   render() {
-    let tag = 'input' + this.props.name;
+    let displayLabel = !isUndefined(this.props.name);
+    let tag = displayLabel ? `input_${snakeCase(this.props.name)}` : '',
+        label = displayLabel ? (
+          <label htmlFor={tag} className='col-sm-3 control-label'>
+            {this.props.name}
+          </label>
+        ) :
+        null;
     return (
       <div className='form-group'>
-        <label htmlFor={tag} className='col-sm-2 control-label'>
-          {this.props.name}
-        </label>
-        <div className='col-sm-10'>
+        {label}
+        <div className={displayLabel ? 'col-sm-9' : ''}>
           <input  value={this.props.value}
                   onChange={this.handleChange}
                   type={this.props.type}

@@ -36,7 +36,10 @@ const Select = React.createClass({
     })
 
     return (
-      <select value={this.props.value} name={this.props.name} onChange={this.onChange}>
+      <select className='form-control'
+              value={this.props.value}
+              name={this.props.name}
+              onChange={this.onChange}>
         {options}
       </select>
     );

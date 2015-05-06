@@ -1,11 +1,12 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link, Navigation} from 'react-router';
 
 import UserActions from '../actions/UserActions';
 
 import UserForm from '../components/UserForm';
 
 const LoginRoute = React.createClass({
+  mixins: [Navigation],
   getInitialState() {
     return {
       username: '',
@@ -18,6 +19,7 @@ const LoginRoute = React.createClass({
   onSubmit(e) {
     e.preventDefault();
     UserActions.login(this.state);
+    this.transitionTo('dashboard');
   },
   render() {
     return (

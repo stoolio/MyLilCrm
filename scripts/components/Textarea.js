@@ -15,10 +15,10 @@ const Textarea = React.createClass({
     let tag = 'input' + this.props.name;
     return (
       <div className='form-group'>
-        <label htmlFor={tag} className='col-sm-2 control-label'>
+        <label htmlFor={tag} className='col-sm-3 control-label'>
           {this.props.name}
         </label>
-        <div className='col-sm-10'>
+        <div className='col-sm-9'>
           <textarea  value={this.props.value}
                   onChange={this.handleChange}
                   type={this.props.type}

@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
 
+import isNull from 'lodash/lang/isNull';
+
 import Textarea from './Textarea';
 import Field from './Field';
 import Submit from './Submit';
@@ -49,12 +51,11 @@ const LeadDetail = React.createClass({
     if(Object.keys(this.props.lead).length === 0) return (
       <h1>Loading...</h1>
     );
+
     let {contact, budget, comments, notes} = this.props.lead;
-    let fullName = 'No Name';
-    if (contact !== undefined) {
-      let {name} = contact;
-      fullName = `${name.first}, ${name.last}`;
-    }
+    let fullName = isNull(contact) ?
+      'Deleted Contact' :
+      `${contact.name.first}, ${contact.name.last}`;
 
     notes = notes.reverse().map(note => {
       return (

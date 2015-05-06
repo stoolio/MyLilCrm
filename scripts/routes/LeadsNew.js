@@ -39,11 +39,7 @@ const LeadsNew = React.createClass({
       value: ''
     });
     return (
-      <div className='row'>
-        <div className='col-lg-6'>
-          <LeadForm options={options} onSubmit={this.onSubmit} />
-        </div>
-      </div>
+      <LeadForm options={options} onSubmit={this.onSubmit} />
     );
   }
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link, Navigation} from 'react-router';
 
 import UserActions from '../actions/UserActions';
 
@@ -28,21 +28,18 @@ const MenuLink = React.createClass({
 });
 
 const Header = React.createClass({
+  mixins: [Navigation],
   render() {
-    let loggedIn = false;
-    let loginLink = (() => {
-      if (this.props.currentUser === false) {
-        return (
-          <MenuLink to={'login'}>Login</MenuLink>
-        );
-      } else {
-        return (
-          <MenuLink to='dashboard' onClick={() => { UserActions.logout(); }}>Logout</MenuLink>
-        );
-      }
-    })();
-    if (this.props.currentUser !== false)
-      loggedIn = true;
+    let loggedIn = !(this.props.currentUser === false);
+    let loginLink = !loggedIn ?
+    (
+      <MenuLink to={'login'}>Login</MenuLink>
+    ) :
+    (
+      <MenuLink to='dashboard' onClick={() => { UserActions.logout(); this.transitionTo('login'); }}>
+        Logout
+      </MenuLink>
+    );
     return (
       <nav className='navbar navbar-default'>
         <div className='container-fluid'>

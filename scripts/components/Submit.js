@@ -7,7 +7,7 @@ const Submit = React.createClass({
   render() {
     return (
       <div className='form-group'>
-        <div className='col-sm-offset-2 col-sm-10'>
+        <div className='col-sm-offset-3 col-sm-9'>
           <button onClick={this.props.onClick} type='submit' className='btn btn-primary'>
             Submit
           </button>

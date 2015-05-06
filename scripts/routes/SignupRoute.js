@@ -1,10 +1,13 @@
 import React from 'react';
 
+import {Navigation} from 'react-router';
+
 import UserActions from '../actions/UserActions';
 
 import UserForm from '../components/UserForm';
 
 const SignupRote = React.createClass({
+  mixins: [Navigation],
   getInitialState() {
     return {
       username: '',
@@ -17,6 +20,7 @@ const SignupRote = React.createClass({
   onSubmit(e) {
     e.preventDefault();
     UserActions.create(this.state);
+    this.transitionTo('login');
   },
   render() {
     return (
