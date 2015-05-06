@@ -30,7 +30,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loaders: ['react-hot', 'babel'],
-        include: path.join(__dirname, 'scripts')
+        include: [path.join(__dirname, 'scripts'), path.join(__dirname, 'app')]
       },
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
         loader: "url?limit=10000&minetype=application/font-woff" },
