@@ -61,7 +61,7 @@ export default {
         console.log(err);
         res.json({error: err});
       } else {
-        res.json({info: 'Deleted sucessfully'});
+        res.json({success: 'Deleted sucessfully'});
       }
     });
   }

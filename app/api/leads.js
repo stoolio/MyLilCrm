@@ -4,8 +4,8 @@ import mongoose from 'mongoose';
 let Lead = mongoose.model('Lead');
 
 export default {
-  load: (req, res, next, id) => {
-    Lead.findById(id).populate('contact').exec((err, lead) => {
+  load(req, res, next, id) {
+    Lead.findById(id).populate('contact stage').exec((err, lead) => {
       if(err) return next(err);
       if(!lead) return next(new Error('not found'));
       req.lead = lead;
@@ -13,10 +13,10 @@ export default {
     });
   },
 
-  index: (req, res) => {
+  index(req, res) {
     Lead.find()
       .select('budget createdAt contact')
-      .populate('contact')
+      .populate('contact stage')
       .sort({'createdAt': 'asc'})
       .exec((err, leads) => {
         if(err) {
@@ -28,23 +28,23 @@ export default {
       });
   },
 
-  // new: (req, res) => {},
+  // new(req, res) {},
 
-  create: (req, res) => {
+  create(req, res) {
     let lead = new Lead(req.body);
     lead.save((err, newLead) => {
       if(err) {
         console.log(err);
         res.json({error: err});
       } else {
-        newLead.populate('contact', (err, result) => {
+        newLead.populate('contact stage', (err, result) => {
           res.json({lead: result});
         });
       }
     });
   },
 
-  createNote: (req, res) => {
+  createNote(req, res) {
     let lead = req.lead;
     lead.notes.push(req.body);
     lead.save((err, lead) => {
@@ -57,17 +57,15 @@ export default {
     });
   },
 
-  show: (req, res) => {
+  show(req, res) {
     res.json({lead: req.lead});
   },
 
-  // edit: (req, res) => {},
+  // edit(req, res) {},
 
-  update: (req, res) => {
+  update(req, res) {
     let lead = req.lead;
-    let id = lead._id;
-    delete lead._id;
-    lead.findOneAndUpdate({_id: id}, lead)
+    lead.findOneAndUpdate({_id: req.lead.id}, req.body)
       .exec((err, updatedLead) => {
         if(err) {
           console.log(err);
@@ -78,14 +76,14 @@ export default {
       });
   },
 
-  destroy: (req, res) => {
+  destroy(req, res) {
     let lead = req.lead;
-    lead.remove((err) => {
+    Lead.remove({_id: lead.id}, (err) => {
       if(err) {
         console.log(err);
         res.json({error: err});
       } else {
-        res.json({info: 'Deleted sucessfully'});
+        res.json({info: 'Deleted Lead sucessfully'});
       }
     });
   }
