@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Link} from 'react-router';
 import ContactList from '../components/ContactList';
 import AutoSearch from '../components/AutoSearch';
 
@@ -21,8 +21,17 @@ const ListContacts = React.createClass({
   render() {
     return (
       <div>
-        <AutoSearch placeholder='Search Contacts...'
+        <div className='row'>
+          <div className='col-md-6'>
+            <AutoSearch placeholder='Search Contacts...'
                     search={ContactActions.search} />
+          </div>
+          <div className='col-md-offset-2 col-md-4'>
+            <Link to='/contacts/new' className='btn btn-default'>
+              Create New
+            </Link>
+          </div>
+        </div>
         <ContactList onSort={this.onSort} onRemove={this.onRemove} contacts={this.props.contacts} />
       </div>
     );

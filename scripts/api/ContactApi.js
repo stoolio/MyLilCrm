@@ -1,17 +1,7 @@
 import request from 'superagent';
+import handle from './handleError';
 
 let server = 'http://localhost:3001';
-
-let handle = (err) => {
-  console.log('--Error--');
-  if(err.status) {
-    console.log('Status: ', err.status);
-    console.log(err.response);
-  } else {
-    console.log(err);
-  }
-  console.log('---------');
-};
 
 export default {
   load(cb) {
@@ -34,7 +24,7 @@ export default {
       .end(cb);
   },
   delete(id, cb) {
-    request
+    return request
       .del(server + '/api/contacts/' + id)
       .on('error', (err) => {
         handle(err);

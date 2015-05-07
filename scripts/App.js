@@ -12,13 +12,9 @@ const App = React.createClass({
     console.log(this.state);
     return (
       <div className='container'>
-        <div className='row'>
-          <div className='col-lg-12'>
-            <Flash messages={this.state.messages} />
-            <Header currentUser={this.state.currentUser} />
-            <RouteHandler {...this.state} />
-          </div>
-        </div>
+        <Flash messages={this.state.messages} />
+        <Header currentUser={this.state.currentUser} />
+        <RouteHandler {...this.state} />
       </div>
     );
   }

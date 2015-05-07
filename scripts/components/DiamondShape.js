@@ -12,13 +12,17 @@ let labelStyle = {
 const DiamondShape = React.createClass({
   propTypes: {
     shape: PropTypes.oneOf(valid.shape).isRequired,
-    float: PropTypes.bool,
+    float: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
     size: PropTypes.number
   },
   render() {
     let {shape, size, float} = this.props;
+    size = Number(size);
     let style = {
-      height: (Number(size) + 20) || 'auto',
+      height: (size + 20) || 'auto',
       width: size || 'auto'
     };
     if (float) style.float = 'left';

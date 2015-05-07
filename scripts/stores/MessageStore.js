@@ -28,9 +28,7 @@ const MessageStore = Reflux.createStore({
     });
   },
   onRemove(i) {
-    this.messages = this.messages.length === 1 ?
-      [] :
-      this.messages.splice(i, 1);
+    this.messages.splice(i, 1);
     this.trigger(this.messages);
   }
 });

@@ -21,7 +21,6 @@ const UserStore = Reflux.createStore({
     return this.state;
   },
   onLoad() {
-    console.log('userstore state: ', this.state);
     Api.load((err, res) => {
       if (err) {
         console.log(err);

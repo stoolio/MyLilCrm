@@ -11,7 +11,7 @@ const Dashboard = React.createClass({
         <h1>Insert Dashboard Here</h1>
         {shape.map(s => {
           return (
-            <DiamondShape shape={s} size='75' float={true} />
+            <DiamondShape key={s} shape={s} size={75} float={true} />
           );
         })}
       </div>
