@@ -1,44 +1,36 @@
-import React from 'react';
-import {Link, Navigation} from 'react-router';
+import React, {PropTypes} from 'react';
+import {Navigation, Link} from 'react-router';
 
 import UserActions from '../actions/UserActions';
 
-const MenuLink = React.createClass({
-  propTypes: {
-    currentUser: React.PropTypes.oneOfType([
-      React.PropTypes.bool,
-      React.PropTypes.object
-    ])
-  },
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-  render() {
-    let {router} = this.context;
-    let isActive = router.isActive(this.props.to, this.props.params, this.props.query);
-    let classes = isActive ? 'active' : '';
-    return (
-      <li className={classes}>
-        <Link {...this.props}>
-          {this.props.children}
-        </Link>
-      </li>
-    );
-  }
-});
+import ListLink from './ListLink';
+
+// <li className='dropdown'>
+//   <a href='#'>Inventory <span className='caret'></span></a>
+//   <ul className='dropdown-menu' role='menu'>
+//     <li><a href='#'>Diamonds</a></li>
+//     <li><a href='#'>Rings</a></li>
+//     <li><a href='#'>Consignment</a></li>
+//   </ul>
+// </li>
 
 const Header = React.createClass({
   mixins: [Navigation],
+  propTypes: {
+    currentUser: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.object
+    ])
+  },
   render() {
-    let loggedIn = !(this.props.currentUser === false);
-    let loginLink = !loggedIn ?
+    let loginLink = this.props.currentUser === false ?
     (
-      <MenuLink to={'login'}>Login</MenuLink>
+      <ListLink to={'login'}>Login</ListLink>
     ) :
     (
-      <MenuLink to='dashboard' onClick={() => { UserActions.logout(); this.transitionTo('login'); }}>
+      <ListLink to='dashboard' onClick={() => { UserActions.logout(); this.transitionTo('login'); }}>
         Logout
-      </MenuLink>
+      </ListLink>
     );
     return (
       <nav className='navbar navbar-default'>
@@ -50,20 +42,15 @@ const Header = React.createClass({
           </div>
           <div className='collapse navbar-collapse'>
             <ul className='nav navbar-nav navbar-left'>
-              <MenuLink to='contacts'>
+              <ListLink to='contacts'>
                 Contacts
-              </MenuLink>
-              <MenuLink to='leads'>
+              </ListLink>
+              <ListLink to='leads'>
                 Leads
-              </MenuLink>
-              <li className='dropdown'>
-                <a href='#'>Inventory <span className='caret'></span></a>
-                <ul className='dropdown-menu' role='menu'>
-                  <li><a href='#'>Diamonds</a></li>
-                  <li><a href='#'>Rings</a></li>
-                  <li><a href='#'>Consignment</a></li>
-                </ul>
-              </li>
+              </ListLink>
+              <ListLink to='settings'>
+                Settings
+              </ListLink>
             </ul>
             <ul className='nav navbar-nav navbar-right'>
               {loginLink}

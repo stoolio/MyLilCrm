@@ -9,6 +9,7 @@ let ObjectId = Schema.Types.ObjectId;
 
 let leadSchema = new Schema({
   contact: { type: ObjectId, ref: 'Contact' },
+  stage: { type: ObjectId, ref: 'LeadStage' },
   budget: {
     from: { type: Number, min: 0 },
     to: { type: Number, min: 0 }

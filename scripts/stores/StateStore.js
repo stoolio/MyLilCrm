@@ -3,6 +3,7 @@ import ContactStore from './ContactStore';
 import LeadStore from './LeadStore';
 import UserStore from './UserStore';
 import MessageStore from './MessageStore';
+import SettingsStore from './SettingsStore';
 
 let StateStore = Reflux.createStore({
   init() {
@@ -10,6 +11,7 @@ let StateStore = Reflux.createStore({
     LeadStore.listen(this.onLeadChange);
     UserStore.listen(this.onUserChange);
     MessageStore.listen(this.onMessageChange);
+    SettingsStore.listen(this.onSettingsChange);
   },
   getInitialState() {
     this.state = {
@@ -18,7 +20,8 @@ let StateStore = Reflux.createStore({
       contacts: [],
       users: {},
       currentUser: false,
-      messages: []
+      messages: [],
+      leadStages: []
     };
     return this.state;
   },
@@ -38,6 +41,10 @@ let StateStore = Reflux.createStore({
   },
   onMessageChange(messages) {
     this.state.messages = messages;
+    this.trigger(this.state);
+  },
+  onSettingsChange(settings) {
+    this.state.leadStages = settings.leadStages;
     this.trigger(this.state);
   }
 });

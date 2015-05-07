@@ -2,13 +2,16 @@ import express from 'express';
 import {json} from 'body-parser';
 
 // DB Schema
+import './model/Settings';
 import './model/Contact';
 import './model/Lead';
+import './model/LeadStage';
 import './model/User';
 
 // API Routes
 import contacts from './api/contacts';
 import leads from './api/leads';
+import leadStages from './api/leadStages';
 import users from './api/users';
 
 // Connect to DB
@@ -50,6 +53,14 @@ api.post('/leads/:leadId/notes/new', leads.createNote);
 api.get('/leads/:leadId', leads.show);
 api.post('/leads/:leadId', leads.update);
 api.delete('/leads/:leadId', leads.destroy);
+
+// leadStages
+api.param('stageId', leadStages.load);
+api.get('/stages', leadStages.index);
+api.post('/stages/sort', leadStages.sort);
+api.post('/stages/new', leadStages.create);
+api.post('/stages/:stageId', leadStages.update);
+api.delete('/stages/:stageId', leadStages.destroy);
 
 // users
 api.param('userId', users.load);
