@@ -9,8 +9,8 @@ function throttle(fn, delay) {
     if(queued) return;
     queued = true;
     setTimeout(() => {
-      fn(current);
       queued = false;
+      fn(current);
     }, delay);
   }
 }
