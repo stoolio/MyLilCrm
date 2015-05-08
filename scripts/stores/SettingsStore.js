@@ -62,7 +62,8 @@ const SettingsStore = Reflux.createStore({
             from = this.findById('leadStages', from),
             to = this.findById('leadStages', to);
         this.state.leadStages.splice(to, 0, this.state.leadStages.splice(from, 1)[0]);
-        if (commit) {
+        if (!!commit) {
+          console.log('commiting leadstage sort');
           Api.leadStage.sort(
             pluck(this.state.leadStages, '_id'),
             (err, res) => {

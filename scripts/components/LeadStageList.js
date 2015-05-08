@@ -1,7 +1,5 @@
 import React, {PropTypes} from 'react';
 
-import debounce from '../lib/debounce';
-
 import SettingsActions from '../actions/SettingsActions'
 
 import LeadStageItem from './LeadStageItem';
@@ -15,11 +13,6 @@ const LeadStageList = React.createClass({
     stages: PropTypes.arrayOf(PropTypes.object).isRequired,
     onRemove: PropTypes.func.isRequired
   },
-  componentWillMount() {
-    this.debouncedSort = debounce(
-      curry(SettingsActions.leadStage, ['$sort'], SettingsActions),
-      50, 200);
-  },
   setDragged(id) {
     this.dragged = id;
   },
@@ -30,8 +23,7 @@ const LeadStageList = React.createClass({
     this.over = e.target.dataset.id;
     SettingsActions.leadStage('$sort', {
       from: this.dragged,
-      to: this.over,
-      commit: false
+      to: this.over
     });
   },
   finishDrag() {

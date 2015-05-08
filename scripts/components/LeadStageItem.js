@@ -13,27 +13,36 @@ const LeadStageItem = React.createClass({
   },
   // Drag Stuff
   onDragStart(e) {
-
+    // add bogus el to use as drag image
     this.shitEl = document.createElement('div');
     this.shitEl.opacity = 0;
-    e.dataTransfer.setData('text', this.props.stage._id);
-    e.dataTransfer.setDragImage(this.shitEl, 0, 0);
-    e.dataTransfer.effectAllowed = 'move';
-
     document.body.appendChild(this.shitEl);
+    // bogus el
+
+    // add fancy drag styles
     let style = React.findDOMNode(this).style
     style.transform = 'translateZ(50px)';
     style.zIndex = 2;
     style.cursor = 'n-resize';
+    // fancy drag styles
+
+    e.dataTransfer.setData('text', this.props.stage._id);
+    e.dataTransfer.setDragImage(this.shitEl, 0, 0);
+    e.dataTransfer.effectAllowed = 'move';
+
     this.props.setDragged(this.props.stage._id);
   },
   onDragEnd(e) {
+    // remove bogus el
+    this.shitEl.parentElement.removeChild(this.shitEl);
+    // bogus el
+
+    // remove fancy drag styles
     let style = React.findDOMNode(this).style
     style.removeProperty('transform');
     style.removeProperty('z-index');
-    style.removeProperty('cursor');
+    // fancy drag styles
 
-    this.shitEl.parent.removeChild(this.shitEl);
     this.props.finishDrag();
   },
   // End Drag Stuff

@@ -2,23 +2,19 @@ import React from 'react';
 
 import Field from './Field';
 import Submit from './Submit';
-import Select from './Select';
+import Select, {SelectPropType} from './Select';
 import Textarea from './Textarea';
 
 const LeadForm = React.createClass({
   propTypes: {
     onSubmit: React.PropTypes.func.isRequired,
-    options: React.PropTypes.oneOfType([
-      React.PropTypes.arrayOf(React.PropTypes.shape({
-        name: React.PropTypes.string,
-        value: React.PropTypes.string
-      })),
-      React.PropTypes.arrayOf(React.PropTypes.string)
-    ])
+    options: SelectPropType.isRequired,
+    stages: SelectPropType.isRequired
   },
   getInitialState() {
     return {
       contact: '',
+      stage: '',
       budget: {
         from: 0,
         to: 0
@@ -66,8 +62,17 @@ const LeadForm = React.createClass({
     return (
       <form className='form-horizontal'>
         <div className='form-group'>
-          <div className='col-md-offset-5 col-md-4'>
-            <Select value={this.state.contact} publishChange={this.handleChange('contact')} name='Contact' options={this.props.options} />
+          <div className='col-md-offset-3 col-md-3'>
+            <Select value={this.state.contact}
+                    publishChange={this.handleChange('contact')}
+                    name='Contact'
+                    options={this.props.options} />
+          </div>
+          <div className='col-md-offset-1 col-md-4'>
+            <Select value={this.state.stage}
+                    publishChange={this.handleChange('stage')}
+                    name='Stage'
+                    options={this.props.stages} />
           </div>
         </div>
         <Field value={this.state.budget.from} publishChange={this.handleChange('budget.from')} name='Budget From' type='number' placeholder='From' />

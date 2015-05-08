@@ -1,16 +1,18 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
+
+const SelectPropType = PropTypes.oneOfType([
+  PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    value: PropTypes.string
+  })),
+  PropTypes.arrayOf(PropTypes.string)
+]);
 
 const Select = React.createClass({
   propTypes: {
-    value: React.PropTypes.any,
-    name: React.PropTypes.string,
-    options: React.PropTypes.oneOfType([
-      React.PropTypes.arrayOf(React.PropTypes.shape({
-        name: React.PropTypes.string,
-        value: React.PropTypes.string
-      })),
-      React.PropTypes.arrayOf(React.PropTypes.string)
-    ])
+    value: PropTypes.any,
+    name: PropTypes.string,
+    options: SelectPropType
   },
   onChange(e) {
     this.props.publishChange(e.target.value);
@@ -31,7 +33,7 @@ const Select = React.createClass({
     let options = this.parseOptions().map(function(opt) {
       let {name, value} = opt;
       return (
-        <option value={value}>{name}</option>
+        <option key={value} value={value}>{name}</option>
       );
     })
 
@@ -46,5 +48,9 @@ const Select = React.createClass({
   }
 
 });
+
+const aVar = 1;
+
+export {SelectPropType, aVar};
 
 export default Select;
