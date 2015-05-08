@@ -1,5 +1,7 @@
 import Reflux from 'reflux';
 
+import pluck from 'lodash/collection/pluck';
+
 import Api from '../api/SettingsApi';
 import SettingsActions from '../actions/SettingsActions';
 import MessageActions from '../actions/MessageActions';
@@ -56,17 +58,17 @@ const SettingsStore = Reflux.createStore({
         });
         break;
       case '$s': // sort
-        let {from, to} = data,
+        let {from, to, commit} = data,
             from = this.findById('leadStages', from),
             to = this.findById('leadStages', to);
         this.state.leadStages.splice(to, 0, this.state.leadStages.splice(from, 1)[0]);
-        Api.leadStage.sort(
-          this.state.leadStages.map(stage => {
-            return stage._id;
-          }),
-          (err, res) => {
-            if (err) console.log(err);
-          });
+        if (commit) {
+          Api.leadStage.sort(
+            pluck(this.state.leadStages, '_id'),
+            (err, res) => {
+              if (err) console.log(err);
+            });
+        }
         this.trigger(this.state);
         break;
     }

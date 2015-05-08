@@ -9,7 +9,6 @@ import StateStore from './stores/StateStore';
 const App = React.createClass({
   mixins: [Reflux.connect(StateStore)],
   render() {
-    console.log(this.state);
     return (
       <div className='container'>
         <Flash messages={this.state.messages} />

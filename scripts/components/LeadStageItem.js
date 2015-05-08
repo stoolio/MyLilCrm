@@ -13,16 +13,27 @@ const LeadStageItem = React.createClass({
   },
   // Drag Stuff
   onDragStart(e) {
-    let data = {
-      id: this.props.stage._id,
-      name: this.props.stage.name
-    };
 
-    e.dataTransfer.setData('text', JSON.stringify(data));
+    this.shitEl = document.createElement('div');
+    this.shitEl.opacity = 0;
+    e.dataTransfer.setData('text', this.props.stage._id);
+    e.dataTransfer.setDragImage(this.shitEl, 0, 0);
+    e.dataTransfer.effectAllowed = 'move';
 
+    document.body.appendChild(this.shitEl);
+    let style = React.findDOMNode(this).style
+    style.transform = 'translateZ(50px)';
+    style.zIndex = 2;
+    style.cursor = 'n-resize';
     this.props.setDragged(this.props.stage._id);
   },
   onDragEnd(e) {
+    let style = React.findDOMNode(this).style
+    style.removeProperty('transform');
+    style.removeProperty('z-index');
+    style.removeProperty('cursor');
+
+    this.shitEl.parent.removeChild(this.shitEl);
     this.props.finishDrag();
   },
   // End Drag Stuff
