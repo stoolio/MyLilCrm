@@ -37,7 +37,11 @@ export default {
           console.log(err);
           res.json({error: '500'});
         } else {
-          res.json({stages: settings.stages});
+          if (settings === null) {
+            res.json({stages: []});
+          } else {
+            res.json({stages: settings.stages});
+          }
         }
       });
   },
@@ -49,11 +53,18 @@ export default {
         console.log(err);
         res.json({error: err});
       } else {
-        Settings.findOne((err, settings) => {
-          settings.stages.push(leadStage);
-          settings.save();
-        });
-        res.json({stage: leadStage});
+        Settings.findOneAndUpdate({},
+          { $push: { stages: leadStage } },
+          { upsert: true },
+          (err, settings) => {
+            if (err) {
+              console.log(err);
+              leadStage.remove();
+              res.json({error: '500'});
+            } else {
+              res.json({stage: leadStage});
+            }
+          });
       }
     });
   },

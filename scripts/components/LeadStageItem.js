@@ -13,6 +13,7 @@ const LeadStageItem = React.createClass({
   },
   // Drag Stuff
   onDragStart(e) {
+    e.stopPropagation();
     // add bogus el to use as drag image
     this.shitEl = document.createElement('div');
     this.shitEl.opacity = 0;
@@ -23,10 +24,9 @@ const LeadStageItem = React.createClass({
     let style = React.findDOMNode(this).style
     style.transform = 'translateZ(50px)';
     style.zIndex = 2;
-    style.cursor = 'n-resize';
     // fancy drag styles
 
-    e.dataTransfer.setData('text', this.props.stage._id);
+    e.dataTransfer.setData('custom', this.props.stage._id);
     e.dataTransfer.setDragImage(this.shitEl, 0, 0);
     e.dataTransfer.effectAllowed = 'move';
 
