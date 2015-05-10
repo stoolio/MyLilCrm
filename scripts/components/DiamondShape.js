@@ -12,11 +12,11 @@ let labelStyle = {
 const DiamondShape = React.createClass({
   propTypes: {
     shape: PropTypes.oneOf(valid.shape).isRequired,
-    float: PropTypes.oneOfType([
+    size: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
     ]),
-    size: PropTypes.number
+    float: PropTypes.bool
   },
   render() {
     let {shape, size, float} = this.props;

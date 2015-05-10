@@ -1,6 +1,7 @@
 import Reflux from 'reflux';
 
 import pluck from 'lodash/collection/pluck';
+import findIndexById from '../lib/findIndexById';
 
 import Api from '../api/SettingsApi';
 import SettingsActions from '../actions/SettingsActions';
@@ -27,12 +28,12 @@ const SettingsStore = Reflux.createStore({
     });
   },
   onLeadStage(action, data) {
-
+    let stages = this.state.leadStages;
     switch (action.substr(0, 2)) {
       case '$a': // add
         Api.leadStage.add(data, (err, res) => {
           let stage = JSON.parse(res.text).stage;
-          this.state.leadStages = this.state.leadStages.concat(stage);
+          stages = stages.concat(stage);
           this.trigger(this.state);
         });
         break;
@@ -43,8 +44,8 @@ const SettingsStore = Reflux.createStore({
             MessageActions.add({
               message: result.success
             });
-            let i = this.findById('leadStages', data);
-            this.state.leadStages.splice(i, 1);
+            let i = findIndexById(stages, data);
+            stages.splice(i, 1);
             this.trigger(this.state);
           }
         });
@@ -52,20 +53,19 @@ const SettingsStore = Reflux.createStore({
       case '$c': // change
         Api.leadStage.change(data, (err, res) => {
           let stage = JSON.parse(res.text).stage,
-              i = this.findById('leadStages', stage._id);
-          this.state.leadStages[i] = stage;
+              i = findIndexById(stages, stage._id);
+          stages[i] = stage;
           this.trigger(this.state);
         });
         break;
       case '$s': // sort
         let {from, to, commit} = data,
-            from = this.findById('leadStages', from),
-            to = this.findById('leadStages', to);
-        this.state.leadStages.splice(to, 0, this.state.leadStages.splice(from, 1)[0]);
+            from = findIndexById(stages, from),
+            to = findIndexById(stages, to);
+        stages.splice(to, 0, stages.splice(from, 1)[0]);
         if (!!commit) {
-          console.log('commiting leadstage sort');
           Api.leadStage.sort(
-            pluck(this.state.leadStages, '_id'),
+            pluck(stages, '_id'),
             (err, res) => {
               if (err) console.log(err);
             });

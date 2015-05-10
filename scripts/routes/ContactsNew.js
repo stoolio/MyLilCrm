@@ -1,19 +1,15 @@
 import React from 'react';
-// import {Navigation} from 'react-router';
+import {Navigation} from 'react-router';
 
 import ContactForm from '../components/ContactForm';
 
 import ContactActions from './../actions/ContactActions';
 
 const ContactsNew = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-  // mixins: [Navigation],
+  mixins: [Navigation],
   add(data) {
     ContactActions.add(data);
-    this.context.router.transitionTo('contacts-default');
-    // this.transitionTo('contacts-default');
+    this.transitionTo('contacts-default');
   },
   render() {
     return (

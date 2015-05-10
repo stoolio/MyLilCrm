@@ -8,7 +8,6 @@
     "url": "https://github.com/stoolio/MyLilCrm"
   },
   "scripts": {
-    "start": "(npm run mongo &) && (npm run backend &) && (npm run frontend &)",
     "frontend": "node server.js",
     "backend": "node app/",
     "mongo": "mongod --config ./mongodb.conf"

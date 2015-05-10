@@ -1,32 +1,10 @@
 import Reflux from 'reflux';
-import ContactActions from '../actions/ContactActions';
+
+import alphaSort from '../lib/alphaSort';
+import findIndexById from '../lib/findIndexById';
+
 import Api from '../api/ContactApi';
-
-function get(obj, path) {
-  if(path.indexOf('.') === -1) {
-    return obj[path];
-  } else {
-    let keys = path.split('.'),
-        len = keys.length - 1,
-        cursor,
-        i = -1;
-    cursor = obj;
-    while(++i < len) {
-      cursor = cursor[keys[i]];
-    }
-    return cursor[keys[i]];
-  }
-}
-
-let alphaSort = function(by, dir) {
-  return (a, b) => {
-    a = get(a, by);
-    b = get(b, by);
-    if(a < b) return -1 * dir;
-    if(a > b) return 1 * dir;
-    return 0;
-  };
-};
+import ContactActions from '../actions/ContactActions';
 
 let sortDir = 1;
 let prevSort = false;
@@ -60,13 +38,13 @@ let ContactStore = Reflux.createStore({
   },
   onRemove(id) {
     // Better?
-    this.contacts.splice(this.getIndexById(id), 1);
+    this.contacts.splice(findIndexById(this.contacts, id), 1);
     this.update(this.contacts);
 
     Api.delete(id);
     // Or?
     // Api.delete(id, (err, res) => {
-    //   this.contacts.splice(this.getIndexById(id), 1);
+    //   this.contacts.splice(findIndexById(this.contacts, id), 1);
     //   this.update(this.contacts);
     // });
   },
@@ -95,15 +73,6 @@ let ContactStore = Reflux.createStore({
           return true;
       }));
     }
-  },
-  getIndexById(id) {
-    let i = -1, len = this.contacts.length;
-    while(++i < len) {
-      if(this.contacts[i]._id === id) {
-        return i;
-      }
-    }
-    return false;
   },
   update(contacts) {
     this.contacts = contacts;

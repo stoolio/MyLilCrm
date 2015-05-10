@@ -1,5 +1,5 @@
 import React from 'react';
-import {HashLocation, run} from 'react-router';
+import {run} from 'react-router';
 import Routes from './Routes';
 import './index.scss';
 

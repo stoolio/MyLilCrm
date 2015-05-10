@@ -31,8 +31,7 @@ const LeadForm = React.createClass({
       // }
     };
   },
-  onClick(e) {
-    e.preventDefault();
+  onClick() {
     this.props.onSubmit(this.state);
   },
   setFieldState(field, val) {
@@ -75,9 +74,20 @@ const LeadForm = React.createClass({
                     options={this.props.stages} />
           </div>
         </div>
-        <Field value={this.state.budget.from} publishChange={this.handleChange('budget.from')} name='Budget From' type='number' placeholder='From' />
-        <Field value={this.state.budget.to} publishChange={this.handleChange('budget.to')} name='Budget To' type='number' placeholder='To' />
-        <Textarea value={this.state.comments} publishChange={this.handleChange('comments')} name='Comments' placeholder='Enter additional information' />
+        <Field  value={this.state.budget.from}
+                publishChange={this.handleChange('budget.from')}
+                name='Budget From'
+                type='number'
+                placeholder='From' />
+        <Field  value={this.state.budget.to}
+                publishChange={this.handleChange('budget.to')}
+                name='Budget To'
+                type='number'
+                placeholder='To' />
+        <Textarea value={this.state.comments}
+                  publishChange={this.handleChange('comments')}
+                  name='Comments'
+                  placeholder='Enter additional information' />
         <Submit onClick={this.onClick} />
       </form>
     );

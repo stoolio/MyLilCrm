@@ -4,7 +4,9 @@ let LeadActions = Reflux.createActions([
   'load',
   'add',
   'addNote',
-  'show'
+  'show',
+  'sort',
+  'search'
 ]);
 
 export default LeadActions;

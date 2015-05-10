@@ -38,8 +38,7 @@ const LeadDetail = React.createClass({
     contentChange: React.PropTypes.func.isRequired,
     createNote: React.PropTypes.func.isRequired
   },
-  addNote(e) {
-    e.preventDefault();
+  addNote() {
     let note = React.findDOMNode(this.refs.note);
     let heading = React.findDOMNode(this.refs.noteHeading);
     this.props.createNote({

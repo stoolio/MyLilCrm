@@ -25,6 +25,7 @@ const AutoSearch = React.createClass({
   },
   componentDidMount() {
     this.throttledSearch = throttle(searchStr => {
+      console.log('throttledSearch:', searchStr);
       this.props.search(searchStr);
     }, this.props.delay);
   },
@@ -33,9 +34,9 @@ const AutoSearch = React.createClass({
       value: val
     });
     if (val.length >= this.props.minLength) {
-      this.throttledSearch(val);
+      this.pendingSearch = this.throttledSearch(val);
     } else {
-      this.props.search('');
+      this.throttledSearch('');
     }
   },
   render() {

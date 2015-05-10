@@ -6,7 +6,7 @@ import Api from '../api/LeadApi';
 // in onShow, instead of setting a current object at this.lead
 // it would expand the object in this.leads
 // However, this is a bonus feature and not necessary
-// So, it's on hold so I can add more features
+// So, it's on hold ...
 
 const LeadStore = Reflux.createStore({
   listenables: [LeadActions],
@@ -31,7 +31,7 @@ const LeadStore = Reflux.createStore({
   onAdd(lead) {
     Api.create(lead, (err, res) => {
       let theLead = JSON.parse(res.text).lead;
-      this.updateLeads([theLead].concat(this.leads));
+      this.updateLeads(this.leads.push(theLead));
     });
   },
   onAddNote(id, note) {
@@ -47,6 +47,32 @@ const LeadStore = Reflux.createStore({
       let lead = JSON.parse(res.text).lead;
       // this.leads[this.idIndex[id]] = lead;
       this.updateLead(lead);
+    });
+  },
+  onSort() {
+
+  },
+  onSearch(str) {
+    if(!str) this.filterLeads(this.leads);
+
+    let regex = new RegExp(str, 'i');
+    this.filterLeads(this.leads.filter(lead => {
+      let {contact} = lead,
+          searchStr;
+      if (contact === null)
+        searchStr = 'Unknown';
+      else
+        searchStr = `${contact.name.first} ${contact.name.last} ${contact.email}`;
+      if (searchStr.search(regex) === -1)
+        return false;
+      else
+        return true;
+    }));
+  },
+  filterLeads(leads) {
+    this.trigger({
+      leads: leads,
+      lead: this.lead
     });
   },
   updateLeads(leads) {
