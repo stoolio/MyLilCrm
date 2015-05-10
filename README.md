@@ -21,7 +21,9 @@ There are three separate elements to run the full app.
 To start everything in one fell swoop:
 
 -EDIT-
+
 npm doesn't like stuff that works just fine on the command line. Just use the separate tasks below.
+
 -END EDIT-
 
 If you want, running them each in their own terminal might be easier for debugging
@@ -44,7 +46,7 @@ The files in app:
 
 * `db.js`: Sets up the connection the database!
 * `index.js`: see above, requires Bable register hook and loads up the app so we can have ES6 *almost* everywhere
-# `server.js`: This could probably be split up. At the lease config information should be pulled out to assist in per environment config information. Otherwise, this configures Express and wires up routes.
+* `server.js`: This could probably be split up. At the lease config information should be pulled out to assist in per environment config information. Otherwise, this configures Express and wires up routes.
 
 The following lists the folders in `app/` and what they're all about:
 
@@ -70,14 +72,14 @@ Here are the basic:
 * `api/`: These are responsible for all communication to the server. Stores use these when they need to get some data. They are currently a very light wrapper around superagent.
 * `components/`: React components! These should be, in a perfect world, purely props driven and as stupid as possible.
 * `layout/`: These are components. I'm not sure they need to be in a special folder. The idea is that they are generic elements of the site structure, but I think some shuffling is in order to make that really true.
-* 'routes/': These are components which layout pages using a collection of components. They divvy up the app wide state passed down from on high, explicity passing down props to their children. They also call actions.
+* `routes/`: These are components which layout pages using a collection of components. They divvy up the app wide state passed down from on high, explicity passing down props to their children. They also call actions.
 * `lib/`: helper functions and reusable bits of code that aren't the other things belong here
-* `App.js`: This is the main layout. It is the home of app wide state, and it listens to the StateStore, a special store that listens to all other stores and combines their state into one big happy family. No other components listen to stores. The StateStore simplifies listening a bit, App doesn't have to listen to store after store, and stores can be added without changing to much code. Just access the props in the child routes.
+* `App.js`: This is the main layout. It is the home of app wide state, and it listens to the StateStore, a special store that listens to all other stores and combines their state into one big happy family. No other components listen to stores. The StateStore simplifies listening a bit, App doesn't have to listen to store after store, and stores can be added without changing too much code. Just access the props in the child routes.
 * `index.js`: This just pulls in all the pieces and runs react-router
 * `Routes.js`: Route definitions! Not much to say.
-* `index.scss`: This file is here so it's easy to require in `index.js`.  Webpack will hot load them, re-compile them etc.
+* `index.scss`: This file is here so it's easy to require in `index.js` for for webpack. They styles will hot load, re-compile etc and we barely ever think about them.
 
-Currently, there are a few components that have state. THey are all forms fields of some sort, and it's not consistent. Some are in `components/` and some are in `routes/`. The plan is to create a FormStore handle pulling that data out to the top.
+Currently, there are a few components that have state. They are all forms fields of some sort, and it's not consistent. Some are in `components/` and some are in `routes/`. The plan is to create a FormStore handle pulling that data out to the top.
 
 Maybe something like:
 
@@ -99,9 +101,9 @@ onStore(key, field, data) {
 
 It seems easy now that I've typed that out, but who knows if it will end up working the way I want it. Only time will tell.
 
-Immutable data sounds interesting as well, in addition to a lib which simplifies all this data passing like cortex or baobab. Either of these seem like a big job, however, and not entirely necessary. Features are first in line (although putting these decisions off will probably make them harder to implement in the future).
+Immutable data sounds interesting as well, in addition to a lib which simplifies all this data passing like cortex or baobab. Either of these seem like a bigger job, however, and not entirely necessary. Features are first in line (although putting these decisions off will probably make them harder to implement in the future).
 
-Currently, we have contacts and leads. New ones can be added, and contacts can be removed. There is an inteface to add and re-order lead stages (via drag-n-drop!).
+Currently, we have contacts and leads. New ones can be added, and contacts can be removed. There is an interface to add and re-order lead stages (via drag-n-drop!).
 
 Contacts can be sorted, and both can be searched, which all takes place client side.
 
@@ -127,7 +129,7 @@ Next on the agenda (in no particular order):
 * diamond request interface to create, view, and edit
 * tracking of vendors and memo goods
 * job tracking, both custom and repairs, auto send CAD to customers. Allow customers to auto approve (send email with Yes in the subject and we will get your job in work)
-* customer portal, perhaps a separate app which consumes part of this api, or its api gets posted to from here, to share data and allow them set preferences, imagine they get an auto text (or their preferred form of communication) when we mark their job as finished
+* customer portal, perhaps a separate app which consumes part of this api, or its api gets posted to from here, to share data and allow them to set preferences. imagine they get an auto text (or their preferred form of communication) when we mark their job as finished
 
 #### Looking to the Future
 
