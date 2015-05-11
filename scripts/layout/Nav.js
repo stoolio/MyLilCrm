@@ -8,6 +8,12 @@ const Nav = React.createClass({
     type: PropTypes.oneOf(['tabs', 'pills']),
     stacked: PropTypes.bool
   },
+  getDefaultProps() {
+    return {
+      type: 'pills',
+      stacked: false
+    };
+  },
   render() {
     let {stacked, type} = this.props,
         classes = ['nav'];

@@ -2,6 +2,7 @@ import React from 'react';
 import {Link, RouteHandler} from 'react-router';
 
 import AutoSearch from '../components/AutoSearch';
+import Nav from '../layout/Nav';
 import LeadList from '../components/LeadList';
 
 import LeadActions from '../actions/LeadActions';
@@ -11,6 +12,12 @@ const Leads = React.createClass({
     LeadActions.load();
   },
   render() {
+    let buttons = this.props.leadStages.map(stage => {
+      return {
+        to: 
+        name: ,
+      };
+    });
     return (
       <div className='row'>
         <div className='col-lg-12'>
@@ -18,7 +25,7 @@ const Leads = React.createClass({
               <div className='col-md-6'>
                 <h1>Leads</h1>
               </div>
-              <div className='col-offset-2 col-md-4'>
+              <div className='col-md-offset-2 col-md-4'>
                 <Link to='leadsNew' className='btn btn-default'>
                   Create New
                 </Link>
@@ -26,6 +33,7 @@ const Leads = React.createClass({
           </div>
           <div className='row'>
             <div className='col-sm-3'>
+              <Nav />
               <AutoSearch placeholder='Search Leads' search={LeadActions.search} />
               <LeadList leads={this.props.leads} onClick={LeadActions.show} />
             </div>
