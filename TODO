@@ -1,0 +1,11 @@
+Use const!!
+Fix up functions:
+  There are a couple areas where default properties should be used
+  Use arrows when possible
+    One line arrow don't need {} and have implicit return!
+    destructuring!
+  Callbacks are lame
+    Promises seem like the best option and are supported in most newer browsers
+Drop lodash?
+  use ramda instead, try more functional programming
+
