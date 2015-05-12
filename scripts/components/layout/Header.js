@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {Navigation, Link} from 'react-router';
 
-import UserActions from '../actions/UserActions';
+import UserActions from '../../actions/UserActions';
 
 import ListLink from './ListLink';
 
@@ -22,13 +22,17 @@ const Header = React.createClass({
       PropTypes.object
     ])
   },
+  logout() {
+    UserActions.logout();
+    this.transitionTo('login');
+  },
   render() {
     let loginLink = this.props.currentUser === false ?
     (
-      <ListLink to={'login'}>Login</ListLink>
+      <ListLink to='login'>Login</ListLink>
     ) :
     (
-      <ListLink to='dashboard' onClick={() => { UserActions.logout(); this.transitionTo('login'); }}>
+      <ListLink onClick={this.logout}>
         Logout
       </ListLink>
     );

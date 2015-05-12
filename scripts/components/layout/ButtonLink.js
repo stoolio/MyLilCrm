@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 import {bootstrap, sizes} from './bootstrapHelpers';
 
-const Button = React.createClass({
+const ButtonLink = React.createClass({
   propTypes: {
     name: PropTypes.string.isRequired,
     type: PropTypes.oneOf('submit button'.split(' ')),
@@ -11,13 +11,15 @@ const Button = React.createClass({
     size: PropTypes.oneOf(sizes)
   },
   getDefaultProps() {
-    style: 'default',
-    size: 'default'
+    return {
+      style: 'default',
+      size: 'default'
+    };
   },
   onClick() {
     e.preventDefault();
     this.props.onClick();
-  }
+  },
   render() {
     let {name, onClick, type, style, size} = this.props;
 
@@ -34,4 +36,4 @@ const Button = React.createClass({
 
 });
 
-export default Button;
+export default ButtonLink;

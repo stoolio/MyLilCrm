@@ -23,9 +23,14 @@ const Nav = React.createClass({
     return (
       <ul className={classes.join(' ')}>
         {this.props.children.map(nav => {
+          let {name, to, params, query} = nav;
           return (
-            <ListLink key={nav.to} to={nav.to} role='presentation'>
-              {nav.name}
+            <ListLink key={`${name}:${to}`}
+                      to={to}
+                      params={params}
+                      query={query}
+                      role='presentation'>
+              {name}
             </ListLink>
           );
         })}

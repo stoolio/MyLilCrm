@@ -1,17 +1,16 @@
 import React from 'react';
-import {RouteHandler, Link} from 'react-router';
+import {RouteHandler} from 'react-router';
 
-import PageHeader from '../layout/PageHeader';
+import FullRow from '../components/layout/FullRow';
+import PageHeader from '../components/layout/PageHeader';
 
 const Contacts = React.createClass({
   render() {
     return (
-      <div className='row'>
-        <div className='col-lg-12'>
-          <PageHeader title='Contacts' />
-          <RouteHandler {...this.props} />
-        </div>
-      </div>
+      <FullRow>
+        <PageHeader title='Contacts' />
+        <RouteHandler {...this.props} />
+      </FullRow>
     );
   }
 });

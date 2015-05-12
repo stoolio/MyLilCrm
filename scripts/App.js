@@ -1,6 +1,6 @@
 import React from 'react';
 import {RouteHandler} from 'react-router';
-import Header from './layout/Header';
+import Header from './components/layout/Header';
 import Flash from './components/Flash';
 
 import Reflux from 'reflux';

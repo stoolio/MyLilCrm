@@ -11,15 +11,17 @@ const Button = React.createClass({
     size: PropTypes.oneOf('xsmall small default large'.split(' '))
   },
   getDefaultProps() {
-    onClick: () => { },
-    type: 'button',
-    style: 'default',
-    size: 'default'
+    return {
+      onClick: () => { },
+      type: 'button',
+      style: 'default',
+      size: 'default'
+    };
   },
   onClick() {
     e.preventDefault();
     this.props.onClick();
-  }
+  },
   render() {
     let {name, onClick, type, style, size} = this.props;
 

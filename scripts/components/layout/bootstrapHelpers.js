@@ -12,15 +12,15 @@ let sizes = Object.keys(sizePrefixes);
 function prefix(type, prefix) {
   if (!prefix || prefix.length === 0) return '';
   if (type.substr(0, 3) === 'btn' && prefix === 'default') return '';
-  return `${pre}-${prefix}`;
+  return `${type}-${prefix}`;
 }
 
 function createPrefixer(type) {
   return curry(prefix, [type]);
 }
 
-function sizePrefix (pre, size) {
-  return prefix(pre, sizePrefixes[size]);
+function sizePrefix (type, size) {
+  return prefix(type, sizePrefixes[size]);
 }
 
 function bootstrap (type, size = false, ...context) {
@@ -34,17 +34,17 @@ function bootstrap (type, size = false, ...context) {
   return classes.join(' ');
 }
 
-function column (cols, offset, join = true) {
-  Object.keys(cols)
+function column (cols, offset = {}, join = true) {
+  return Object.keys(cols)
     .map(c => {
-      return `col-${sizePrefix(c)}-${cols[c]}`;
+      return `${sizePrefix('col', c)}-${cols[c]}`; //`col-${sizePrefix(c)}-${cols[c]}`;
     })
     .concat(
       Object.keys(offset)
         .map(o => {
-          return `col-${sizePrefix(o)}-offset-${offset[o]}`;
+          return `${sizePrefix('col', o)}-offset-${cols[o]}`; //`col-${sizePrefix(o)}-offset-${offset[o]}`;
         })
-    );
+    ).join(' ');
 }
 
 export {bootstrap, column, sizePrefix, prefix, sizes};

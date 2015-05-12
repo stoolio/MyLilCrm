@@ -1,8 +1,8 @@
 import React from 'react';
 import {RouteHandler, State} from 'react-router';
 
-import PageHeader from '../layout/PageHeader';
-import Nav from '../layout/Nav';
+import PageHeader from '../components/layout/PageHeader';
+import Nav from '../components/layout/Nav';
 
 const Settings = React.createClass({
   mixins: [State],
