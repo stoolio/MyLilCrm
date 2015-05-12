@@ -37,7 +37,7 @@ let ContactStore = Reflux.createStore({
     });
   },
   onRemove(id) {
-    // Better?
+    // This?
     this.contacts.splice(findIndexById(this.contacts, id), 1);
     this.update(this.contacts);
 
@@ -65,13 +65,15 @@ let ContactStore = Reflux.createStore({
       ContactActions.load();
     } else {
       let regex = new RegExp(str, 'i');
-      this.filter(this.contacts.filter(contact => {
-        let searchStr = `${contact.name.first} ${contact.name.last} ${contact.email}`;
-        if (searchStr.search(regex) === -1)
-          return false;
-        else
-          return true;
-      }));
+      this.filter(this.contacts.filter(
+        ({name: {first, last}, email}) => {
+          let searchStr = `${first} ${last} ${email}`;
+          if (searchStr.search(regex) === -1)
+            return false;
+          else
+            return true;
+        }
+      ));
     }
   },
   update(contacts) {
