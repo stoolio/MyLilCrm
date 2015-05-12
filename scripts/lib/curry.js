@@ -1,3 +1,4 @@
+// probably should just call this partial
 function curry(fn, curried, context) {
   context = context || void 0;
   return (args) => {
@@ -5,4 +6,4 @@ function curry(fn, curried, context) {
   }
 }
 
-export default curry:
+export default curry;
