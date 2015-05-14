@@ -9,13 +9,15 @@ const AutoSearch = React.createClass({
     delay: PropTypes.number,
     placeholder: PropTypes.string,
     minLength: PropTypes.number,
-    search: PropTypes.func.isRequired
+    search: PropTypes.func.isRequired,
+    value: PropTypes.string
   },
   getDefaultProps() {
     return {
       delay: 500,
       placeholder: '',
-      minLength: 3
+      minLength: 3,
+      value: ''
     };
   },
   getInitialState() {
@@ -25,7 +27,6 @@ const AutoSearch = React.createClass({
   },
   componentDidMount() {
     this.throttledSearch = throttle(searchStr => {
-      console.log('throttledSearch:', searchStr);
       this.props.search(searchStr);
     }, this.props.delay);
   },
@@ -40,8 +41,9 @@ const AutoSearch = React.createClass({
     }
   },
   render() {
+    let {value, placeholder} = this.props;
     return (
-      <Field value={this.state.value} type='text' placeholder={this.props.placeholder} publishChange={this.handleChange} />
+      <Field value={value.length === 0 ? this.state.value : value} type='text' placeholder={placeholder} publishChange={this.handleChange} />
     );
   }
 });

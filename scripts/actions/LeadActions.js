@@ -6,6 +6,7 @@ let LeadActions = Reflux.createActions([
   'addNote',
   'show',
   'sort',
+  'filter',
   'search'
 ]);
 

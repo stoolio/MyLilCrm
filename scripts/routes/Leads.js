@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, RouteHandler} from 'react-router';
+import {Link, RouteHandler, State} from 'react-router';
 
 import {FullRow, Row, Column} from '../components/layout/';
 
@@ -11,18 +11,37 @@ import LeadActions from '../actions/LeadActions';
 import SettingsActions from '../actions/SettingsActions';
 
 const Leads = React.createClass({
+  mixins: [State],
   componentWillMount() {
     LeadActions.load();
     SettingsActions.load();
   },
+  // componentWillUpdate() {
+  //   const {stage} = this.getQuery();
+  //   if (stage)
+  //     LeadActions.filter(stage);
+  //   else
+  //     LeadActions.filter('');
+  // },
   render() {
-    let buttons = this.props.leadStages.map(stage => {
+    const buttons = this.props.leadStages.map(stage => {
+      if (this.getQuery().stage === stage.name) {
+        return {
+          to: 'leads-default',
+          name: stage.name
+        }
+      }
       return {
         to: 'leads-default',
         query: {stage: stage.name},
         name: stage.name
       };
     });
+    const {stage} = this.getQuery(),
+          leads = !stage ? this.props.leads : this.props.leads.filter(lead => {
+            if (!lead.stage) return false;
+            return lead.stage.name === stage;
+          });
     return (
       <FullRow>
         <div className='page-header row'>
@@ -35,11 +54,13 @@ const Leads = React.createClass({
               </Link>
             </Column>
         </div>
+        <FullRow>
+          <Nav>{buttons}</Nav>
+        </FullRow>
         <Row>
           <Column cols={{small: 3}}>
-            <Nav>{buttons}</Nav>
             <AutoSearch placeholder='Search Leads' search={LeadActions.search} />
-            <LeadList leads={this.props.leads} onClick={LeadActions.show} />
+            <LeadList leads={leads} onClick={LeadActions.show} />
           </Column>
           <Column cols={{small: 9}}>
             <RouteHandler {...this.props} />

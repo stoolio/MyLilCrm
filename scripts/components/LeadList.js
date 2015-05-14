@@ -1,6 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router';
 
+// for later
+// <span className='badge'><span className='glyphicon glyphicon-exclamation-sign' style={{color: 'white'}} /></span>
+
 const LeadList = React.createClass({
   propTypes: {
     leads: React.PropTypes.arrayOf(React.PropTypes.object),

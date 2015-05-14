@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 import createdAndModifiedAt from '../lib/createdAndModifiedAt';
 import stateList from '../validation/states';
 
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-let contactSchema = new Schema({
+const contactSchema = new Schema({
   name: {
     first: String,
     last: String
@@ -26,6 +26,4 @@ contactSchema.virtual('fullName').set(function(name) {
 
 contactSchema.plugin(createdAndModifiedAt);
 
-let Contact = mongoose.model('Contact', contactSchema);
-
-export default Contact;
+export default mongoose.model('Contact', contactSchema);

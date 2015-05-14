@@ -52,6 +52,15 @@ const LeadStore = Reflux.createStore({
   onSort() {
 
   },
+  onFilter(stage) {
+    if (stage === '')
+      this.filterLeads(this.leads);
+    else
+      this.filterLeads(this.leads.filter(lead => {
+        if (!lead.stage) return false;
+        return lead.stage.name === stage;
+      }));
+  },
   onSearch(str) {
     if(!str) this.filterLeads(this.leads);
 

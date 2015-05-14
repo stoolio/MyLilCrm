@@ -15,13 +15,13 @@ let loading = false,
 let ContactStore = Reflux.createStore({
   listenables: [ContactActions],
   init() {
-    this.listenTo(ContactActions.load, this.loadContacts);
+    // this.listenTo(ContactActions.load, this.loadContacts);
   },
   getInitialState() {
     this.contacts = [];
     return this.contacts;
   },
-  loadContacts() {
+  onLoad() {
     loading = true;
     Api.load((err, res) => {
       this.contacts = JSON.parse(res.text).contacts;

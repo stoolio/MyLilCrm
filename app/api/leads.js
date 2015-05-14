@@ -15,7 +15,7 @@ export default {
 
   index(req, res) {
     Lead.find()
-      .select('budget createdAt contact')
+      .select('budget createdAt contact stage')
       .populate('contact stage')
       .sort({'createdAt': 'asc'})
       .exec((err, leads) => {

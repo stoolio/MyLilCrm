@@ -23,9 +23,7 @@ const MessageStore = Reflux.createStore({
     this.trigger(this.messages);
   },
   onClear() {
-    this.messages = this.messages.filter(message => {
-      return message.sticky;
-    });
+    this.messages = this.messages.filter(message => message.sticky);
   },
   onRemove(i) {
     this.messages.splice(i, 1);

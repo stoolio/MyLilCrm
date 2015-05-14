@@ -1,4 +1,4 @@
-import curry from '../../lib/curry';
+import curry from '../../lib/partial';
 
 let sizePrefixes = {
   xsmall: 'xs',

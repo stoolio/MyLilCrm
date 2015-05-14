@@ -12,10 +12,13 @@ const ContactsNew = React.createClass({
     this.transitionTo('contacts-default');
   },
   render() {
+    let {suggestions, verifiedAddress} = this.props;
     return (
       <div className='row'>
         <div className='col-lg-6'>
-          <ContactForm onSubmit={this.add} />
+          <ContactForm suggestions={suggestions}
+                       verifiedAddress={verifiedAddress}
+                       onSubmit={this.add} />
         </div>
       </div>
     );
