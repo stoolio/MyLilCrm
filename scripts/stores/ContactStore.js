@@ -12,7 +12,7 @@ let prevSort = false;
 let loading = false,
     loaded = false;
 
-let ContactStore = Reflux.createStore({
+const ContactStore = Reflux.createStore({
   listenables: [ContactActions],
   init() {
     // this.listenTo(ContactActions.load, this.loadContacts);

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Column from './layout/Column';
+
 import Field from './Field';
 import Submit from './Submit';
 import Select, {SelectPropType} from './Select';
@@ -61,18 +63,18 @@ const LeadForm = React.createClass({
     return (
       <form className='form-horizontal'>
         <div className='form-group'>
-          <div className='col-md-offset-3 col-md-3'>
+          <Column cols={{medium: 3}} offset={{medium: 3}}>
             <Select value={this.state.contact}
                     publishChange={this.handleChange('contact')}
                     name='Contact'
                     options={this.props.options} />
-          </div>
-          <div className='col-md-offset-1 col-md-4'>
+          </Column>
+          <Column cols={{medium: 4}} offset={{medium: 1}}>
             <Select value={this.state.stage}
                     publishChange={this.handleChange('stage')}
                     name='Stage'
                     options={this.props.stages} />
-          </div>
+          </Column>
         </div>
         <Field  value={this.state.budget.from}
                 publishChange={this.handleChange('budget.from')}

@@ -48,8 +48,7 @@ const LeadStageItem = React.createClass({
   // End Drag Stuff
   render() {
     return (
-      <li
-          className='list-group-item'
+      <li className='list-group-item'
           data-id={this.props.stage._id}
           onDragStart={this.onDragStart}
           onDragEnd={this.onDragEnd}

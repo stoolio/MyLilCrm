@@ -1,5 +1,7 @@
 import React, {PropTypes} from 'react';
 
+import Column from './layout/Column';
+
 import AutoSearch from './AutoSearch';
 
 import AddressActions from '../actions/AddressActions';
@@ -28,14 +30,14 @@ const AddressAutocomplete = React.createClass({
       );
     })
     return (
-      <div className='col-sm-9 col-sm-offset-3'>
+      <Column cols={{small: 9}} offset={{small: 3}}>
         <AutoSearch value={this.props.value} placeholder='Enter an address for suggestions'
                   search={AddressActions.autocomplete} />
         {suggestions.length > 0 ?
           <div onClick={this.onClick} style={style} className='list-group'>{suggestions}</div> :
           ''
         }
-      </div>
+      </Column>
     );
   }
 });

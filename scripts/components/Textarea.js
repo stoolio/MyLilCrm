@@ -1,5 +1,9 @@
 import React from 'react';
 
+import column from './layout/bootstrapHelpers';
+
+import Column from './layout/Column';
+
 const Textarea = React.createClass({
   propTypes: {
     value: React.PropTypes.any.isRequired,
@@ -15,10 +19,10 @@ const Textarea = React.createClass({
     let tag = 'input' + this.props.name;
     return (
       <div className='form-group'>
-        <label htmlFor={tag} className='col-sm-3 control-label'>
+        <label htmlFor={tag} className={`${column({small: 3})} control-label`}>
           {this.props.name}
         </label>
-        <div className='col-sm-9'>
+        <Column cols={{small: 9}}>
           <textarea  value={this.props.value}
                   onChange={this.handleChange}
                   type={this.props.type}
@@ -26,7 +30,7 @@ const Textarea = React.createClass({
                   id={tag}
                   className='form-control'
                   rows='3' />
-        </div>
+        </Column>
       </div>
     );
   }

@@ -1,10 +1,9 @@
 import React from 'react';
-
 import {Navigation} from 'react-router';
 
-import UserActions from '../actions/UserActions';
-
 import UserForm from '../components/UserForm';
+
+import UserActions from '../actions/UserActions';
 
 const SignupRote = React.createClass({
   mixins: [Navigation],

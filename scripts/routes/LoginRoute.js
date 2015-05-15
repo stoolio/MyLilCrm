@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link, Navigation} from 'react-router';
 
-import UserActions from '../actions/UserActions';
-
 import UserForm from '../components/UserForm';
+
+import UserActions from '../actions/UserActions';
 
 const LoginRoute = React.createClass({
   mixins: [Navigation],

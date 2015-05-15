@@ -1,6 +1,8 @@
 import React from 'react';
 import {RouteHandler, State} from 'react-router';
 
+import {Row, Column} from '../components/layout/';
+
 import PageHeader from '../components/layout/PageHeader';
 import Nav from '../components/layout/Nav';
 
@@ -9,9 +11,9 @@ const Settings = React.createClass({
   render() {
     let sub = this.getPathname().split(/\/settings\//)[1];
     return (
-      <div className='row'>
+      <Row>
         <PageHeader title='Settings' sub={sub} />
-        <div className='col-sm-3'>
+        <Column cols={{small: 3}}>
           <Nav type='pills' stacked>
             {[
               {
@@ -24,11 +26,11 @@ const Settings = React.createClass({
               }
             ]}
           </Nav>
-        </div>
-        <div className='col-sm-9'>
+        </Column>
+        <Column cols={{small: 9}}>
           <RouteHandler {...this.props} />
-        </div>
-      </div>
+        </Column>
+      </Row>
     );
   }
 });

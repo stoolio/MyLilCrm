@@ -6,7 +6,7 @@ import UserStore from './UserStore';
 import MessageStore from './MessageStore';
 import SettingsStore from './SettingsStore';
 
-let StateStore = Reflux.createStore({
+const StateStore = Reflux.createStore({
   init() {
     AddressStore.listen(this.onAddressChange);
     ContactStore.listen(this.onContactChange);

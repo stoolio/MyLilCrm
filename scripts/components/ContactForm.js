@@ -1,5 +1,7 @@
 import React, {PropTypes} from 'react';
 
+import {Row, Column} from './layout/';
+
 import Field from './Field';
 import Submit from './Submit';
 import AddressAutocomplete from './AddressAutocomplete';

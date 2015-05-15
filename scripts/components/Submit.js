@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Column from './layout/Column';
+
 const Submit = React.createClass({
   propTypes: {
     onClick: React.PropTypes.func.isRequired
@@ -11,11 +13,11 @@ const Submit = React.createClass({
   render() {
     return (
       <div className='form-group'>
-        <div className='col-sm-offset-3 col-sm-9'>
+        <Column cols={{small: 9}} offset={{small: 3}}>
           <button onClick={this.onClick} type='submit' className='btn btn-primary'>
             {this.props.children || 'Submit'}
           </button>
-        </div>
+        </Column>
       </div>
     );
   }

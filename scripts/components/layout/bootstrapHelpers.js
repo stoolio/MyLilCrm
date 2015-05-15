@@ -1,4 +1,4 @@
-import curry from '../../lib/partial';
+import partial from '../../lib/partial';
 
 let sizePrefixes = {
   xsmall: 'xs',
@@ -16,7 +16,7 @@ function prefix(type, prefix) {
 }
 
 function createPrefixer(type) {
-  return curry(prefix, [type]);
+  return partial(prefix, type);
 }
 
 function sizePrefix (type, size) {
@@ -34,7 +34,7 @@ function bootstrap (type, size = false, ...context) {
   return classes.join(' ');
 }
 
-function column (cols, offset = {}, join = true) {
+function column (cols, offset = {}) {
   return Object.keys(cols)
     .map(c => {
       return `${sizePrefix('col', c)}-${cols[c]}`; //`col-${sizePrefix(c)}-${cols[c]}`;

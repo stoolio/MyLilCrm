@@ -1,6 +1,8 @@
 import React from 'react';
 import {Navigation} from 'react-router';
 
+import {Row, Column} from '../components/layout/';
+
 import ContactForm from '../components/ContactForm';
 
 import ContactActions from './../actions/ContactActions';
@@ -14,13 +16,13 @@ const ContactsNew = React.createClass({
   render() {
     let {suggestions, verifiedAddress} = this.props;
     return (
-      <div className='row'>
-        <div className='col-lg-6'>
+      <Row>
+        <Column cols={{large: 6}}>
           <ContactForm suggestions={suggestions}
                        verifiedAddress={verifiedAddress}
                        onSubmit={this.add} />
-        </div>
-      </div>
+        </Column>
+      </Row>
     );
   }
 });

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import LeadDetail from '../components/LeadDetail';
 
 import LeadActions from '../actions/LeadActions';

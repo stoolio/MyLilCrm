@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {bootstrap} from './layout/bootstrapHelpers';
+
 import ContactItem from './ContactItem';
 
 const ContactList = React.createClass({
@@ -21,7 +23,7 @@ const ContactList = React.createClass({
       );
     });
     return (
-      <table className='table table-striped'>
+      <table className={bootstrap('table', false, 'striped')}>
         <tbody>
           <tr onClick={this.onSort}>
             <th>
