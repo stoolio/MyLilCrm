@@ -26,9 +26,8 @@ const AutoSearch = React.createClass({
     }
   },
   componentDidMount() {
-    this.throttledSearch = throttle(searchStr => {
-      this.props.search(searchStr);
-    }, this.props.delay);
+    let {search, delay} = this.props;
+    this.throttledSearch = throttle(search, delay);
   },
   handleChange(val) {
     this.setState({
@@ -43,7 +42,10 @@ const AutoSearch = React.createClass({
   render() {
     let {value, placeholder} = this.props;
     return (
-      <Field value={value.length === 0 ? this.state.value : value} type='text' placeholder={placeholder} publishChange={this.handleChange} />
+      <Field value={value.length === 0 ? this.state.value : value}
+             type='text'
+             placeholder={placeholder}
+             publishChange={this.handleChange} />
     );
   }
 });

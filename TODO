@@ -1,3 +1,8 @@
+Conquer Inconsistency - this one is tricky
+  Naming of functions is wonky, particularly event callbacks. Decide on a format and make it happen
+  Only include propTypes for props that are actually consumed by a component. More seems unecessary.
+  We should really strip state out of all components, but...
+  The stores are starting to become messy, in relation to function names and functionality
 Use const!!
 Fix up functions:
   There are a couple areas where default properties should be used
@@ -5,7 +10,8 @@ Fix up functions:
     One line arrow don't need {} and have implicit return!
     destructuring!
   Callbacks are lame
-    Promises seem like the best option and are supported in most newer browsers
+    this is a more structural change rather than cleanup
+    Promises seem like the best option and are even supported in most newer browsers
 Drop lodash?
   use ramda instead, try more functional programming
 
