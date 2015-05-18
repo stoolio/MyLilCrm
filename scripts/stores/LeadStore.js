@@ -66,12 +66,13 @@ const LeadStore = Reflux.createStore({
 
     let regex = new RegExp(str, 'i');
     this.filterLeads(this.leads.filter(
-      ({name: {first, last}, email}) => {
-        let searchStr;
-        if (!(first || last || email))
-          searchStr = 'Unknown';
-        else
-          searchStr = `${first} ${last} ${email}`;
+      lead => {
+        let searchStr = 'Unknown';
+        if (lead.contact) {
+          let {first, last, email} = lead.contact;
+          if (first || last || email)
+            searchStr = `${first} ${last} ${email}`;
+        }
         if (searchStr.search(regex) === -1)
           return false;
         else

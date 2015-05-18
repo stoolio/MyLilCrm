@@ -16,13 +16,16 @@ const Leads = React.createClass({
     LeadActions.load();
     SettingsActions.load();
   },
-  // componentWillUpdate() {
-  //   const {stage} = this.getQuery();
-  //   if (stage)
-  //     LeadActions.filter(stage);
-  //   else
-  //     LeadActions.filter('');
-  // },
+  getInitialState() {
+    return {
+      searchVal: ''
+    };
+  },
+  handleChange(val) {
+    this.setState({
+      searchVal: val
+    });
+  },
   render() {
     const buttons = this.props.leadStages.map(stage => {
       if (this.getQuery().stage === stage.name) {
@@ -59,7 +62,11 @@ const Leads = React.createClass({
         </FullRow>
         <Row>
           <Column cols={{small: 3}}>
-            <AutoSearch placeholder='Search Leads' search={LeadActions.search} />
+            <AutoSearch
+              value={this.state.searchVal}
+              placeholder='Search Leads...'
+              handleChange={this.handleChange}
+              search={LeadActions.search} />
             <LeadList leads={leads} onClick={LeadActions.show} />
           </Column>
           <Column cols={{small: 9}}>

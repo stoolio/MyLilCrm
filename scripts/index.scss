@@ -56,3 +56,10 @@ $icon-font-path: "/fonts/";
 // Utility classes
 @import "bootstrap/utilities";
 @import "bootstrap/responsive-utilities";
+
+// arg animation
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

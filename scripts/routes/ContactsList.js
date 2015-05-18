@@ -12,8 +12,18 @@ const ListContacts = React.createClass({
   propTypes: {
     contacts: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
   },
+  getInitialState() {
+    return {
+      searchVal: ''
+    };
+  },
   componentDidMount() {
     ContactActions.load();
+  },
+  handleChange(val) {
+    this.setState({
+      searchVal: val
+    });
   },
   onSort(by) {
     ContactActions.sort(by);
@@ -26,8 +36,11 @@ const ListContacts = React.createClass({
       <div>
         <Row>
           <Column cols={{medium: 6}}>
-            <AutoSearch placeholder='Search Contacts...'
-                    search={ContactActions.search} />
+            <AutoSearch
+              value={this.state.searchVal}
+              placeholder='Search Contacts...'
+              handleChange={this.handleChange}
+              search={ContactActions.search} />
           </Column>
           <Column cols={{medium: 4}} offset={{medium: 2}}>
             <Link to='/contacts/new' className='btn btn-default'>
@@ -35,9 +48,10 @@ const ListContacts = React.createClass({
             </Link>
           </Column>
         </Row>
-        <ContactList onSort={this.onSort}
-                     onRemove={this.onRemove}
-                     contacts={this.props.contacts} />
+        <ContactList
+          onSort={this.onSort}
+          onRemove={this.onRemove}
+          contacts={this.props.contacts} />
       </div>
     );
   }

@@ -4,7 +4,9 @@ import {Row, Column} from './layout/';
 
 import Field from './Field';
 import Submit from './Submit';
-import AddressAutocomplete from './AddressAutocomplete';
+import Autocomplete from './Autocomplete';
+
+import AddressActions from '../actions/AddressActions';
 
 const ContactForm = React.createClass({
   propTypes: {
@@ -19,6 +21,15 @@ const ContactForm = React.createClass({
       email: '',
       phone: ''
     };
+  },
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.verifiedAddress !== '' &&
+      this.props.verifiedAddress !== nextProps.verifiedAddress) {
+      this.setState({
+        address: nextProps.verifiedAddress
+      });
+    }
   },
   onClick() {
     this.props.onSubmit(this.state);
@@ -40,24 +51,30 @@ const ContactForm = React.createClass({
       <Row>
         <Column cols={{large: 6}}>
           <form className='form-horizontal'>
-            <Field value={this.state.fullName}
-                   publishChange={this.handleChange('fullName')}
-                   name='Name'
-                   type='text'
-                   placeholder='First & Last Name' />
-            <AddressAutocomplete value={verifiedAddress}
-                                 suggestions={suggestions}
-                                 onSelect={selectAddress} />
-            <Field value={this.state.email}
-                   publishChange={this.handleChange('email')}
-                   name='Email'
-                   type='email'
-                   placeholder='Email' />
-            <Field value={this.state.phone}
-                   publishChange={this.handleChange('phone')}
-                   name='Phone'
-                   type='tel'
-                   placeholder='Phone Number' />
+            <Field
+              value={this.state.fullName}
+              publishChange={this.handleChange('fullName')}
+              name='Name'
+              type='text'
+              placeholder='First & Last Name' />
+            <Autocomplete
+              value={this.state.address}
+              suggestions={suggestions}
+              handleChange={this.handleChange('address')}
+              autocomplete={AddressActions.autocomplete}
+              handleSelect={this.selectAddress} />
+            <Field
+              value={this.state.email}
+              publishChange={this.handleChange('email')}
+              name='Email'
+              type='email'
+              placeholder='Email' />
+            <Field
+              value={this.state.phone}
+              publishChange={this.handleChange('phone')}
+              name='Phone'
+              type='tel'
+              placeholder='Phone Number' />
             <Submit onClick={this.onClick} />
           </form>
         </Column>
