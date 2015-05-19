@@ -10,12 +10,12 @@ const SelectPropType = PropTypes.oneOfType([
 
 const Select = React.createClass({
   propTypes: {
-    value: PropTypes.any,
+    value: PropTypes.func.isRequired,
     name: PropTypes.string,
     options: SelectPropType
   },
   onChange(e) {
-    this.props.publishChange(e.target.value);
+    this.props.value(e.target.value);
   },
   parseOptions() {
     if(!(this.props.options[0] instanceof Object)) {
@@ -39,7 +39,7 @@ const Select = React.createClass({
 
     return (
       <select className='form-control'
-              value={this.props.value}
+              value={this.props.value()}
               name={this.props.name}
               onChange={this.onChange}>
         {options}

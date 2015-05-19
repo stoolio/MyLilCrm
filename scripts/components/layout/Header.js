@@ -32,7 +32,7 @@ const Header = React.createClass({
       <ListLink to='login'>Login</ListLink>
     ) :
     (
-      <ListLink onClick={this.logout}>
+      <ListLink to='login' onClick={this.logout}>
         Logout
       </ListLink>
     );

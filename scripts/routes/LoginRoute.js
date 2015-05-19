@@ -16,8 +16,7 @@ const LoginRoute = React.createClass({
   },
   onSubmit(e) {
     e.preventDefault();
-    this.submit(UserActions.login, this.clear);
-    // this.transitionTo('dashboard');
+    this.submit(UserActions.login);
   },
   render() {
     return (

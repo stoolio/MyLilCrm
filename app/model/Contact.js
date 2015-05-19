@@ -22,6 +22,7 @@ const contactSchema = new Schema({
 });
 
 contactSchema.virtual('verifiedAddress').set(function (address) {
+  if (address === undefined || address === '') return;
   this.address.street = address.delivery_line_1;
   this.address.city = address.components.city_name;
   this.address.state = address.components.state_abbreviation;

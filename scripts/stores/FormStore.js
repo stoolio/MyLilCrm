@@ -18,8 +18,13 @@ const FormStore = Reflux.createStore({
     this.state[group] = vals;
     this.trigger(this.state);
   },
-  onSubmit(group, fn) {
-    fn(this.state[group]);
+  onSubmit(group, fn, extra = {}) {
+    let formData = Object.assign({}, this.state[group], extra);
+    fn(formData);
+    for (var field in this.state[group]) {
+      this.state[group][field] = '';
+    }
+    this.trigger(this.state);
   }
 });
 

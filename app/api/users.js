@@ -41,32 +41,36 @@ export default {
 
   login: (req, res) => {
     let {username, password} = req.body;
-    User.findOne({username: username}, (err, user) => {
-      if (err) {
-        console.log(err);
-        res.json({error: err.text});
-      } else {
-        if(user === null) {
-          res.json({login: false, user: null});
-        }
-        user.comparePassword(password, (err, isMatch) => {
-          if (err) {
-            console.log(err);
-            res.json({error: err.text});
-          } else {
-            if (isMatch) {
-              res.json({login: true, user: {
-                _id: user._id,
-                username: user.username,
-                createdAt: user.createdAt
-              }});
-            } else {
-              res.json({login: false, user: null});
-            }
+    if (username.length === 0 || password.length === 0) {
+      res.json({error: 'Bad username or password'});
+    } else {
+      User.findOne({username: username}, (err, user) => {
+        if (err) {
+          console.log(err);
+          res.json({error: err.text});
+        } else {
+          if(user === null) {
+            res.json({login: false, user: null});
           }
-        })
-      }
-    })
+          user.comparePassword(password, (err, isMatch) => {
+            if (err) {
+              console.log(err);
+              res.json({error: err.text});
+            } else {
+              if (isMatch) {
+                res.json({login: true, user: {
+                  _id: user._id,
+                  username: user.username,
+                  createdAt: user.createdAt
+                }});
+              } else {
+                res.json({login: false, user: null});
+              }
+            }
+          })
+        }
+      });
+    }
   },
 
   show: (req, res) => {

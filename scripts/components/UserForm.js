@@ -18,20 +18,47 @@ const UserForm = React.createClass({
     return (
       <form className='form-horizontal'>
         <div className='form-group'>
-          <label htmlFor='inputEmail3' className='col-sm-2 control-label'>Username</label>
+          <label
+            htmlFor='inputEmail3'
+            className='col-sm-2 control-label'>
+            Username
+          </label>
           <div className='col-sm-10'>
-            <input value={username()} onChange={this.handleChange(username)} ref='user' type='email' className='form-control' id='inputEmail3' placeholder='Email' />
+            <input
+              value={username()}
+              onChange={this.handleChange(username)}
+              ref='user'
+              type='email'
+              className='form-control'
+              id='inputEmail3'
+              placeholder='Email' />
           </div>
         </div>
         <div className='form-group'>
-          <label htmlFor='inputPassword3' className='col-sm-2 control-label'>Password</label>
+          <label
+            htmlFor='inputPassword3'
+            className='col-sm-2 control-label'>
+            Password
+          </label>
           <div className='col-sm-10'>
-            <input value={password()} onChange={this.handleChange(password)} ref='pass' type='password' className='form-control' id='inputPassword3' placeholder='Password' />
+            <input
+              value={password()}
+              onChange={this.handleChange(password)}
+              ref='pass'
+              type='password'
+              className='form-control'
+              id='inputPassword3'
+              placeholder='Password' />
           </div>
         </div>
         <div className='form-group'>
           <div className='col-sm-offset-2 col-sm-10'>
-            <button onClick={this.props.onSubmit} type='submit' className='btn btn-default'>{this.props.action}</button>
+            <button
+              onClick={this.props.onSubmit}
+              type='submit'
+              className='btn btn-default'>
+              {this.props.action}
+            </button>
           </div>
         </div>
       </form>

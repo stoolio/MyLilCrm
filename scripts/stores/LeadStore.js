@@ -30,13 +30,21 @@ const LeadStore = Reflux.createStore({
   },
   onAdd(lead) {
     Api.create(lead, (err, res) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
       let theLead = JSON.parse(res.text).lead;
-      this.updateLeads(this.leads.push(theLead));
+      if (theLead === undefined) return;
+      this.leads.push(theLead);
+      this.updateLeads(this.leads);
     });
   },
-  onAddNote(id, note) {
+  onAddNote(note) {
     // note.user = id;
     // this.leads[this.idIndex[id]].notes.shift(note);
+    const id = note._id;
+    delete note._id;
     Api.createNote(id, note, (err, res) => {
       let lead = JSON.parse(res.text).lead;
       this.updateLead(lead);

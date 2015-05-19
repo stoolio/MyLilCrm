@@ -21,18 +21,16 @@ const FormMixin = {
       return acc;
     }, {});
 
-    ret.clear = function () {
-      const len = fields.length;
-      let i = -1;
-      while (++i < len) {
-        this.props.forms[group][fields[i]] = '';
-      }
-    };
+    // ret.clear = function () {
+    //   const len = fields.length;
+    //   let i = -1;
+    //   while (++i < len) {
+    //     this.props.forms[group][fields[i]] = '';
+    //   }
+    // };
 
-    ret.submit = function (fn, cb) {
-      if (cb && typeof cb === 'function')
-        fn(this.props.forms[group], cb);
-      fn(this.props.forms[group]);
+    ret.submit = function (fn, extra = {}) {
+      FormActions.submit(group, fn, extra);
     };
 
     ret.fields = function () {

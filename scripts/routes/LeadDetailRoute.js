@@ -27,10 +27,14 @@ const LeadDetailRoute = React.createClass({
       });
       return;
     }
-    LeadActions.addNote(this.props.lead._id, {
-      user: this.props.currentUser._id,
-      subject: this.subject(),
-      content: this.content()
+    // LeadActions.addNote(this.props.lead._id, {
+    //   user: this.props.currentUser._id,
+    //   subject: this.subject(),
+    //   content: this.content()
+    // });
+    this.submit(LeadActions.addNote, {
+      _id: this.props.lead._id,
+      user: this.props.currentUser._id
     });
   },
   render() {

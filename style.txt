@@ -1,0 +1,33 @@
+import React, {PropTypes} from 'react';
+// other libs like reflux
+
+import {Row} from './components/layout';
+// other layout components
+
+import Field from './components/Field';
+// other standard components
+
+import *Actions from './actions/*';
+// other actions
+
+const SomeComponent = React.createClass({
+  mixins: [''],
+  propTypes: {
+    stuff: PropTypes.string.isRequired
+    // other props
+  },
+  componentWillMount() {},
+  // other lifecycle funcs
+  handleClick() {},
+  // other event handlers, custom funcs
+  render() {
+    return (
+      <div props=''>
+      </div>
+      // or, not space after props
+      <div props= '' />
+    );
+  }
+});
+
+export default SomeComponent;

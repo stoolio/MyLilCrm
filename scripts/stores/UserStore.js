@@ -51,8 +51,8 @@ const UserStore = Reflux.createStore({
           message: `Logged in as ${user.username}.`,
           type: 'success'
         });
-        this.update(user);
         cb && typeof cb === 'function' && cb();
+        this.update(user);
       } else {
         MessageActions.add({
           callout: 'Error: ',

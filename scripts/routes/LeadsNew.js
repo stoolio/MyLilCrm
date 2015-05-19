@@ -3,12 +3,40 @@ import {Navigation} from 'react-router';
 
 import LeadForm from '../components/LeadForm';
 
-import LeadActions from './../actions/LeadActions';
+import FormMixin from '../actions/FormMixin';
+import LeadActions from '../actions/LeadActions';
 import ContactActions from '../actions/ContactActions';
 import SettingsActions from '../actions/SettingsActions';
 
+  // getInitialState() {
+  //   return {
+  //     contact: '',
+  //     stage: '',
+  //     budget: {
+  //       from: 0,
+  //       to: 0
+  //     },
+  //     comments: ''
+  //     // diamond: diamondRequestSchema,
+  //     // setting: {
+  //     //   images: [String],
+  //     //   style: String,
+  //     //   metal: {
+  //     //     quality: Enum(validMetalQualities),
+  //     //     color: Enum(validMetalColors)
+  //     //   }
+  //     // }
+  //   };
+  // },
+
 const LeadsNew = React.createClass({
-  mixins: [Navigation],
+  mixins: [Navigation, FormMixin.Group('leadsNew', [
+    'contact',
+    'stage',
+    'budgetFrom',
+    'budgetTo',
+    'comments'
+  ])],
   propTypes: {
     contacts: React.PropTypes.array
   },
@@ -16,8 +44,8 @@ const LeadsNew = React.createClass({
     SettingsActions.load();
     ContactActions.load();
   },
-  onSubmit(lead) {
-    LeadActions.add(lead);
+  onSubmit() {
+    this.submit(LeadActions.add);
     this.transitionTo('leads-default');
   },
   render() {
@@ -52,9 +80,11 @@ const LeadsNew = React.createClass({
     });
 
     return (
-      <LeadForm options={options}
-                stages={stages}
-                onSubmit={this.onSubmit} />
+      <LeadForm
+        options={options}
+        fields={this.fields()}
+        stages={stages}
+        onSubmit={this.onSubmit} />
     );
   }
 });

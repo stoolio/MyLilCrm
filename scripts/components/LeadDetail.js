@@ -33,7 +33,7 @@ function price(num) {
 const LeadDetail = React.createClass({
   mixin: [PureRenderMixin],
   propTypes: {
-    users: PropTypes.arrayOf(PropTypes.object),
+    users: PropTypes.object,
     lead: PropTypes.object.isRequired,
     subject: PropTypes.func.isRequired,
     content: PropTypes.func.isRequired,

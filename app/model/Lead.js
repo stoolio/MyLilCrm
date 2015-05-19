@@ -29,6 +29,14 @@ let leadSchema = new Schema({
 
 leadSchema.plugin(createdAndModifiedAt);
 
+leadSchema.virtual('budgetFrom').set(function (val) {
+  this.budget.from = val;
+});
+
+leadSchema.virtual('budgetTo').set(function (val) {
+  this.budget.to = val;
+});
+
 let Lead = mongoose.model('Lead', leadSchema);
 
 export default Lead;
