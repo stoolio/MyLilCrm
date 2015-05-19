@@ -41,7 +41,8 @@ const UserStore = Reflux.createStore({
       }
     })
   },
-  onLogin(user) {
+  onLogin(user, cb) {
+    console.log('onLogin:', user);
     Api.login(user, (err, res) => {
       let {login, user} = JSON.parse(res.text);
       if (login) {
@@ -51,6 +52,7 @@ const UserStore = Reflux.createStore({
           type: 'success'
         });
         this.update(user);
+        cb && typeof cb === 'function' && cb();
       } else {
         MessageActions.add({
           callout: 'Error: ',

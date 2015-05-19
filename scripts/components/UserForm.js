@@ -3,30 +3,30 @@ import React from 'react';
 const UserForm = React.createClass({
   propTypes: {
     action: React.PropTypes.string.isRequired,
-    publishChange: React.PropTypes.func.isRequired,
+    fields: React.PropTypes.object.isRequired,
     onSubmit: React.PropTypes.func.isRequired
   },
-  handleChange() {
-    let username = React.findDOMNode(this.refs.user).value;
-    let password = React.findDOMNode(this.refs.pass).value;
-    this.props.publishChange({
-      username,
-      password
-    })
+  handleChange(setter) {
+    return e => {
+      e.preventDefault();
+      let {target: {value}} = e;
+      setter(value);
+    }
   },
   render() {
+    const {username, password} = this.props.fields;
     return (
       <form className='form-horizontal'>
         <div className='form-group'>
           <label htmlFor='inputEmail3' className='col-sm-2 control-label'>Username</label>
           <div className='col-sm-10'>
-            <input value={this.props.username} onChange={this.handleChange} ref='user' type='email' className='form-control' id='inputEmail3' placeholder='Email' />
+            <input value={username()} onChange={this.handleChange(username)} ref='user' type='email' className='form-control' id='inputEmail3' placeholder='Email' />
           </div>
         </div>
         <div className='form-group'>
           <label htmlFor='inputPassword3' className='col-sm-2 control-label'>Password</label>
           <div className='col-sm-10'>
-            <input value={this.props.password} onChange={this.handleChange} ref='pass' type='password' className='form-control' id='inputPassword3' placeholder='Password' />
+            <input value={password()} onChange={this.handleChange(password)} ref='pass' type='password' className='form-control' id='inputPassword3' placeholder='Password' />
           </div>
         </div>
         <div className='form-group'>

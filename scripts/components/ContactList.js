@@ -47,6 +47,11 @@ const ContactList = React.createClass({
               </a>
             </th>
             <th>
+              <a href='#' onClick={this.sort} data-by='address.state'>
+                State
+              </a>
+            </th>
+            <th>
               Delete
             </th>
           </tr>

@@ -9,16 +9,31 @@ const contactSchema = new Schema({
     first: String,
     last: String
   },
+  address: {
+    street: String,
+    city: String,
+    state: String,
+    zip: String,
+    verificationData: Schema.Types.Mixed
+  },
+  // end address
   email: String,
-  phone: String,
-  state: { type: String, enum: stateList , default: 'Unknown' }
+  phone: String
 });
 
-contactSchema.virtual('fullName').get(function() {
-  return this.name.first + ' ' + this.name.last;
+contactSchema.virtual('verifiedAddress').set(function (address) {
+  this.address.street = address.delivery_line_1;
+  this.address.city = address.components.city_name;
+  this.address.state = address.components.state_abbreviation;
+  this.address.zip = address.components.zipcode;
+  this.address.verificationData = address;
 });
 
-contactSchema.virtual('fullName').set(function(name) {
+contactSchema.virtual('fullName').get(function () {
+  `${this.name.first} ${this.name.last}`
+});
+
+contactSchema.virtual('fullName').set(function (name) {
   let names = name.split(' ');
   this.name.first = names[0];
   this.name.last = names[1];

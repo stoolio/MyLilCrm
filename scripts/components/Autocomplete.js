@@ -12,9 +12,8 @@ const style = {
 
 const Autocomplete = React.createClass({
   propTypes: {
-    value: PropTypes.string,
+    value: PropTypes.func.isRequired,
     suggestions: PropTypes.arrayOf(PropTypes.string),
-    handleChange: PropTypes.func.isRequired,
     autocomplete: PropTypes.func.isRequired,
     handleSelect: PropTypes.func.isRequired
   },
@@ -36,7 +35,6 @@ const Autocomplete = React.createClass({
         <AutoSearch
           value={value}
           placeholder='Enter an address for suggestions'
-          handleChange={handleChange}
           search={autocomplete} />
         {suggestions.length > 0 ?
           <div

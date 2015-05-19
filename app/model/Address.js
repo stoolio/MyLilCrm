@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import {modifiedAt} from '../lib/modifiedAt';
+import {modifiedAt} from '../lib/createdAndModifiedAt';
 import states from '../validation/states';
 
 const Schema = mongoose.Schema;
@@ -14,4 +14,9 @@ const addressSchema = new Schema({
   verificationData: Schema.Types.Mixed
 });
 
-export default mongoose.model('Address', addressSchema);
+const Address = mongoose.model('Address', addressSchema)
+
+export default {
+  addressSchema,
+  Address
+};

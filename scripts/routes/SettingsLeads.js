@@ -4,21 +4,13 @@ import Field from '../components/Field';
 import Submit from '../components/Submit';
 import LeadStageList from '../components/LeadStageList';
 
+import FormMixin from '../actions/FormMixin';
 import SettingsActions from '../actions/SettingsActions';
 
 const SettingsLeads = React.createClass({
-  getInitialState() {
-    return {
-      newStage: ''
-    };
-  },
+  mixins: [FormMixin.Field('settingsStages', 'newStage')],
   componentWillMount() {
     SettingsActions.load();
-  },
-  handleChange(val) {
-    this.setState({
-      newStage: val
-    });
   },
   onRemove(id) {
     SettingsActions.leadStage('$remove', id);
@@ -27,9 +19,6 @@ const SettingsLeads = React.createClass({
     SettingsActions.leadStage('$add', {
       name: this.state.newStage
     });
-    this.setState({
-      newStage: ''
-    });
   },
   render() {
     return (
@@ -37,11 +26,10 @@ const SettingsLeads = React.createClass({
         <h1>Lead Stages</h1>
         <LeadStageList stages={this.props.leadStages} onRemove={this.onRemove} />
         <form>
-          <Field  value={this.state.newStage}
+          <Field  value={this.value}
                   name='Add Stage'
                   type='text'
-                  placeholder='New Lead Stage'
-                  publishChange={this.handleChange} />
+                  placeholder='New Lead Stage' />
           <Submit onClick={this.onSubmit}>
             Add
           </Submit>

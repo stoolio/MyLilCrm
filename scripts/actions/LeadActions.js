@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
 
-let LeadActions = Reflux.createActions([
+const LeadActions = Reflux.createActions([
   'load',
   'add',
   'addNote',

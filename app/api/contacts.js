@@ -5,15 +5,18 @@ let Contact = mongoose.model('Contact');
 
 export default {
   load: (req, res, next, id) => {
-    Contact.findOne({ _id: id }, (err, contact) => {
-      if(err) return next(err);
-      if(!contact) return next(new Error('not found'));
-      req.contact = contact;
-      next();
-    });
+    Contact.findOne({ _id: id })
+      .select('name email phone address.street address.city address.state address.zip')
+      .exec((err, contact) => {
+        if(err) return next(err);
+        if(!contact) return next(new Error('not found'));
+        req.contact = contact;
+        next();
+      });
   },
   index: (req, res) => {
     Contact.find()
+      .select('name email phone address.state')
       .sort({'name.last': 'asc'})
       .exec((err, contacts) => {
         if(err) {

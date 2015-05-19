@@ -7,24 +7,15 @@ import AutoSearch from '../components/AutoSearch';
 import Nav from '../components/layout/Nav';
 import LeadList from '../components/LeadList';
 
+import FormMixin from '../actions/FormMixin';
 import LeadActions from '../actions/LeadActions';
 import SettingsActions from '../actions/SettingsActions';
 
 const Leads = React.createClass({
-  mixins: [State],
+  mixins: [State, FormMixin.Field('leadsList', 'search')],
   componentWillMount() {
     LeadActions.load();
     SettingsActions.load();
-  },
-  getInitialState() {
-    return {
-      searchVal: ''
-    };
-  },
-  handleChange(val) {
-    this.setState({
-      searchVal: val
-    });
   },
   render() {
     const buttons = this.props.leadStages.map(stage => {
@@ -63,9 +54,8 @@ const Leads = React.createClass({
         <Row>
           <Column cols={{small: 3}}>
             <AutoSearch
-              value={this.state.searchVal}
+              value={this.value}
               placeholder='Search Leads...'
-              handleChange={this.handleChange}
               search={LeadActions.search} />
             <LeadList leads={leads} onClick={LeadActions.show} />
           </Column>

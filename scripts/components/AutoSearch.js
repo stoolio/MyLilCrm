@@ -9,38 +9,40 @@ const AutoSearch = React.createClass({
     delay: PropTypes.number,
     placeholder: PropTypes.string,
     minLength: PropTypes.number,
-    handleChange: PropTypes.func.isRequired,
     search: PropTypes.func.isRequired,
-    value: PropTypes.string
+    value: PropTypes.func.isRequired
   },
   getDefaultProps() {
     return {
       delay: 500,
       placeholder: '',
-      minLength: 3,
-      value: ''
+      minLength: 3
     };
   },
   componentDidMount() {
     let {search, delay} = this.props;
     this.throttledSearch = throttle(search, delay);
   },
-  handleChange(val) {
-    if (val.length >= this.props.minLength) {
-      this.pendingSearch = this.throttledSearch(val);
+  handleChange(e) {
+    let { target: {value} } = e;
+    if (value.length >= this.props.minLength) {
+      this.pendingSearch = this.throttledSearch(value);
     } else {
       this.throttledSearch('');
     }
-    this.props.handleChange(val);
+    this.props.value(value);
   },
   render() {
     let {value, placeholder} = this.props;
     return (
-      <Field
-        value={value}
-        type='text'
-        placeholder={placeholder}
-        publishChange={this.handleChange} />
+      <div>
+        <input
+          value={this.props.value()}
+          onChange={this.handleChange}
+          type='text'
+          placeholder={this.props.placeholder}
+          className='form-control' />
+      </div>
     );
   }
 });

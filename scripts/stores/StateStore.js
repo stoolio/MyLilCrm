@@ -1,6 +1,7 @@
 import Reflux from 'reflux';
 import AddressStore from './AddressStore';
 import ContactStore from './ContactStore';
+import FormStore from './FormStore';
 import LeadStore from './LeadStore';
 import UserStore from './UserStore';
 import MessageStore from './MessageStore';
@@ -10,6 +11,7 @@ const StateStore = Reflux.createStore({
   init() {
     AddressStore.listen(this.onAddressChange);
     ContactStore.listen(this.onContactChange);
+    FormStore.listen(this.onFormChange);
     LeadStore.listen(this.onLeadChange);
     UserStore.listen(this.onUserChange);
     MessageStore.listen(this.onMessageChange);
@@ -24,18 +26,21 @@ const StateStore = Reflux.createStore({
       currentUser: false,
       messages: [],
       leadStages: [],
-      suggestions: []
+      suggestions: [],
+      forms: {}
     };
     return this.state;
   },
   onAddressChange({suggestions, verifiedAddress}) {
     this.state.suggestions = suggestions;
-    this.state.verifiedAddress = verifiedAddress;
-    console.log(this.state);
     this.trigger(this.state);
   },
   onContactChange(contacts) {
     this.state.contacts = contacts;
+    this.trigger(this.state);
+  },
+  onFormChange(formData) {
+    this.state.forms = formData;
     this.trigger(this.state);
   },
   onLeadChange(leadData) {

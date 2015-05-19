@@ -14,9 +14,6 @@ let loading = false,
 
 const ContactStore = Reflux.createStore({
   listenables: [ContactActions],
-  init() {
-    // this.listenTo(ContactActions.load, this.loadContacts);
-  },
   getInitialState() {
     this.contacts = [];
     return this.contacts;
@@ -31,6 +28,11 @@ const ContactStore = Reflux.createStore({
     });
   },
   onAdd(contact) {
+    console.log('contact:', contact);
+    // this is nasty
+    let verifiedAddress = contact.address;
+    delete contact.address;
+    contact.verifiedAddress = verifiedAddress;
     Api.create(contact, (err, res) => {
       let theContact = JSON.parse(res.text).contact;
       this.update([theContact].concat(this.contacts));

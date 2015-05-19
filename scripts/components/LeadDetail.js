@@ -35,33 +35,21 @@ const LeadDetail = React.createClass({
   propTypes: {
     users: PropTypes.arrayOf(PropTypes.object),
     lead: PropTypes.object.isRequired,
-    subject: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    subjectChange: PropTypes.func.isRequired,
-    contentChange: PropTypes.func.isRequired,
+    subject: PropTypes.func.isRequired,
+    content: PropTypes.func.isRequired,
     createNote: PropTypes.func.isRequired
   },
-  addNote() {
-    let note = React.findDOMNode(this.refs.note);
-    let heading = React.findDOMNode(this.refs.noteHeading);
-    this.props.createNote({
-      subject: heading.value,
-      content: note.value
-    });
-  },
   render() {
-    console.log('rendering lead-detail');
     if(Object.keys(this.props.lead).length === 0) return (
       <h1>Loading...</h1>
     );
-    console.log('actual render');
     const {contact, stage, budget, comments, notes} = this.props.lead;
     const leadStage = !stage ? 'None' : stage.name;
     const fullName = isNull(contact) ?
       'Deleted Contact' :
       `${contact.name.first}, ${contact.name.last}`;
 
-    const noteList = notes.reverse().map(note => {
+    const noteList = notes.slice().reverse().map(note => {
       return (
         <a key={note._id} className='list-group-item'>
           <h4 className='list-group-item-heading'>
@@ -86,17 +74,17 @@ const LeadDetail = React.createClass({
         </div>
         <hr />
         <form className='form-horizontal'>
-          <Field  ref='noteHeading'
-                  value={this.props.subject}
-                  name=''
-                  type='text'
-                  placeholder='Subject'
-                  publishChange={this.props.subjectChange} />
-          <Textarea ref='note'
-                    value={this.props.content}
-                    placeholder='Notes'
-                    publishChange={this.props.contentChange} />
-          <Submit onClick={this.addNote} />
+          <Field
+            ref='noteHeading'
+            value={this.props.subject}
+            name=''
+            type='text'
+            placeholder='Subject' />
+          <Textarea
+            ref='note'
+            value={this.props.content}
+            placeholder='Notes' />
+          <Submit onClick={this.props.createNote} />
         </form>
         <div className='list-group'>
           {noteList}

@@ -28,10 +28,9 @@ function bootstrap (type, size = false, ...context) {
     type,
     sizePrefix(type, size)
   ];
-  classes.concat(context.map(thing => {
+  return classes.concat(context.map(thing => {
     return prefix(type, thing);
-  }))
-  return classes.join(' ');
+  })).join(' ');
 }
 
 function column (cols, offset = {}) {
@@ -46,5 +45,7 @@ function column (cols, offset = {}) {
         })
     ).join(' ');
 }
+
+window.bootstrap = bootstrap;
 
 export {bootstrap, column, sizePrefix, prefix, sizes};

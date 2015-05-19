@@ -9,8 +9,7 @@ const AddressStore = Reflux.createStore({
   listenables: [AddressActions],
   getInitialState() {
     return {
-      suggestions: [],
-      verifiedAddress: ''
+      suggestions: []
     }
   },
   onAutocomplete(str) {
@@ -27,11 +26,11 @@ const AddressStore = Reflux.createStore({
       this.suggest(suggestions.map(({text}) => text));
     });
   },
-  onVerify(addr) {
+  onVerify(addr, setter) {
     Api.verify(addr, (err, res) => {
       if (err) {
         console.log(err);
-        this.verify('Error: unable to verify address')
+        // this.verify('Error: unable to verify address')
       }
       const [verified, ...others] = JSON.parse(res.text);
       if (others.length !== 0) {
@@ -41,31 +40,26 @@ const AddressStore = Reflux.createStore({
           type: 'warning'
         });
       }
-      const {
-        delivery_line_1,
-        last_line
-      } = verified;
-      this.verify(`${delivery_line_1} ${last_line}`);
+      if (setter && typeof setter === 'function')
+        setter(verified);
+      this.suggest([]);
     })
   },
   onClear() {
     this.trigger({
-      suggestions: [],
-      verifiedAddress: ''
+      suggestions: []
     });
   },
   suggest(data) {
     this.trigger({
-      suggestions: data,
-      verifiedAddress: ''
-    });
-  },
-  verify(data) {
-    this.trigger({
-      suggestions: [],
-      verifiedAddress: data
+      suggestions: data
     });
   }
+  // verify(data) {
+  //   this.trigger({
+  //     suggestions: []
+  //   });
+  // }
 });
 
 export default AddressStore;
