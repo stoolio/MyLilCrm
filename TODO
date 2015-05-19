@@ -12,6 +12,6 @@ Fix up functions:
   Callbacks are lame
     this is a more structural change rather than cleanup
     Promises seem like the best option and are even supported in most newer browsers
-Drop lodash?
-  use ramda instead, try more functional programming
+DONE! Drop lodash?
+  still have to convert to ramda's partial, but that means giving up my impossibly beautiful ES6 version (sic)
 

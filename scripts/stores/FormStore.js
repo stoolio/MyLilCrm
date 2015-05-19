@@ -1,5 +1,7 @@
 import Reflux from 'reflux';
 
+import merge from 'ramda/src/merge';
+
 import FormActions from '../actions/FormActions';
 
 const FormStore = Reflux.createStore({
@@ -19,7 +21,7 @@ const FormStore = Reflux.createStore({
     this.trigger(this.state);
   },
   onSubmit(group, fn, extra = {}) {
-    let formData = Object.assign({}, this.state[group], extra);
+    let formData = merge(this.state[group], extra);
     fn(formData);
     for (var field in this.state[group]) {
       this.state[group][field] = '';

@@ -21,14 +21,6 @@ const FormMixin = {
       return acc;
     }, {});
 
-    // ret.clear = function () {
-    //   const len = fields.length;
-    //   let i = -1;
-    //   while (++i < len) {
-    //     this.props.forms[group][fields[i]] = '';
-    //   }
-    // };
-
     ret.submit = function (fn, extra = {}) {
       FormActions.submit(group, fn, extra);
     };
