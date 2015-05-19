@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
 
-import pluck from 'lodash/collection/pluck';
+import pluck from 'ramda/src/pluck';
 import findIndexById from '../lib/findIndexById';
 
 import Api from '../api/SettingsApi';
@@ -65,7 +65,7 @@ const SettingsStore = Reflux.createStore({
         stages.splice(to, 0, stages.splice(from, 1)[0]);
         if (!!commit) {
           Api.leadStage.sort(
-            pluck(stages, '_id'),
+            pluck('_id', stages),
             (err, res) => {
               if (err) console.log(err);
             });

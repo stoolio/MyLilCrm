@@ -1,6 +1,6 @@
 import FormActions from './FormActions';
 
-import pick from 'lodash/object/pick';
+import pick from 'ramda/src/pick';
 import partial from '../lib/partial';
 
 const FormMixin = {
@@ -34,7 +34,7 @@ const FormMixin = {
     };
 
     ret.fields = function () {
-      return pick(this, ...fields);
+      return pick(fields, this);
     };
 
     return ret;

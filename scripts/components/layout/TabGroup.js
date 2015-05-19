@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import capitalize from 'lodash/string/capitalize';
+import capitalize from '../../lib/capitalize';
 
 const TabGroup = React.createClass({
   propTypes: {

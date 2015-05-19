@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 
-import capitalize from 'lodash/string/capitalize';
+import capitalize from '../lib/capitalize';
 
 import valid from '../../app/validation/diamonds';
 

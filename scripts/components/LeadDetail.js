@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {PureRenderMixin} from 'react/addons';
 import moment from 'moment';
 
-import isNull from 'lodash/lang/isNull';
+import isNull from '../lib/isNull';
 
 import Textarea from './Textarea';
 import Field from './Field';

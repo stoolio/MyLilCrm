@@ -1,5 +1,4 @@
 import Reflux from 'reflux';
-import defaults from 'lodash/object/defaults';
 
 import MessageActions from '../actions/MessageActions';
 
@@ -14,10 +13,10 @@ const MessageStore = Reflux.createStore({
     return [];
   },
   onAdd(message) {
-    defaults(message, {
+    Object.assign({
       stick: false,
       type: 'info'
-    });
+    }, message);
     message.key = `msg_${++id}`;
     this.messages.push(message);
     this.trigger(this.messages);

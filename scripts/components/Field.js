@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
-import isUndefined from 'lodash/lang/isUndefined';
-import snakeCase from 'lodash/string/snakeCase';
+import isUndefined from '../lib/isUndefined';
+import snakeCase from '../lib/snakeCase';
 
 const Field = React.createClass({
   propTypes: {

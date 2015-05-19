@@ -4,7 +4,10 @@ import Header from './components/layout/Header';
 import Flash from './components/Flash';
 
 import Reflux from 'reflux';
+import Promise from 'bluebird';
 import StateStore from './stores/StateStore';
+
+Reflux.setPromise(Promise);
 
 const PageContainer = React.createClass({
   render() {
