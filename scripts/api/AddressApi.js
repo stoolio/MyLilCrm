@@ -7,7 +7,7 @@ const url = {
 };
 
 const auth = {
-  'auth-id': '4127345890544834966'
+  'auth-id': '' /* enter actual auth id here */
 };
 
 export default {
